@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ city.name }} - TerraVista</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <nav class="navbar dark-nav">
+        <div class="logo">TerraVista</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#places">Destinations</a></li>
+            <li><a href="#accommodations">Hotels & Dining</a></li>
+        </ul>
+    </nav>
+
+    <div class="city-header">
+        <h1>{{ city.name | upper }}</h1>
+        <div class="tags">
+            <span class="tag sport-tag">{{ city.tag1 }}</span>
+            <span class="tag food-tag">{{ city.tag2 }}</span>
+            <span class="tag art-tag">{{ city.tag3 }}</span>
+        </div>
+        <p class="city-desc">{{ city.description }}</p>
+    </div>
+
+    <h2 class="section-title" id="places">Top Places to Visit</h2>
+    <div class="grid-container">
+        {% for place in places %}
+        <div class="card">
+            <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}">
+            <div class="card-content">
+                <span class="category-text">{{ place.category }}</span>
+                <h3>{{ place.name }}</h3>
+                <p>{{ place.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="section-header">
+        <h2 id="accommodations">Hotels & Dining</h2>
+        <select id="sortOptions" onchange="sortItems()">
+            <option value="default">Sort By</option>
+            <option value="highToLow">Price: High to Low</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="rating">Top Rated</option>
+        </select>
+    </div>
+    
+    <div class="grid-container" id="itemGrid">
+        {% for item in items %}
+        <div class="card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}">
+            <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}">
+            <div class="card-content">
+                <h3>{{ item.name }} <span class="rating">⭐ {{ item.rating }}</span></h3>
+                <span class="budget-badge {{ item.budget_category | lower }}">{{ item.budget_category }}</span>
+                <p class="price">₹{{ item.price }} <small>/ night or meal</small></p>
+                <button class="book-btn">Direct Book Now</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="section-title">Transport & Live Routes</h2>
+    <div class="map-container">
+        <div class="transport-info">
+            <h3>Local Transport</h3>
+            <ul>
+                <li>🚌 BEST Bus Routes covering all major zones.</li>
+                <li>🚕 Yellow-Black Taxis available via meters.</li>
+                <li>🚆 Local Train Network - The fastest way.</li>
+            </ul>
+            <button class="book-cab-btn">Book Local Cab Now</button>
+        </div>
+        <div id="liveMap" style="height: 400px; width: 60%;"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Simple Beginner-Friendly Sorting Logic
+        function sortItems() {
+            let container = document.getElementById("itemGrid");
+            let cards = Array.from(container.getElementsByClassName("item-card"));
+            let sortValue = document.getElementById("sortOptions").value;
+
+            cards.sort(function(a, b) {
+                let priceA = parseInt(a.getAttribute("data-price"));
+                let priceB = parseInt(b.getAttribute("data-price"));
+                let ratingA = parseFloat(a.getAttribute("data-rating"));
+                let ratingB = parseFloat(b.getAttribute("data-rating"));
+
+                if (sortValue === "lowToHigh") return priceA - priceB;
+                if (sortValue === "highToLow") return priceB - priceA;
+                if (sortValue === "rating") return ratingB - ratingA;
+                return 0;
+            });
+
+            container.innerHTML = "";
+            cards.forEach(card => container.appendChild(card));
+        }
+
+        // Live Map Logic (Leaflet.js)
+        var map = L.map('liveMap').setView([18.9220, 72.8347], 14); // Coordinates for Gateway of India
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors | TerraVista Routing'
+        }).addTo(map);
+        L.marker([18.9220, 72.8347]).addTo(map)
+            .bindPopup('MUMBAI<br>City Center (Safe Zone)')
+            .openPopup();
+    </script>
+</body>
+</html>

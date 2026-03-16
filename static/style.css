@@ -1,0 +1,53 @@
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+body { background-color: #f8f9fa; }
+
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; padding: 20px 50px; background: transparent; position: absolute; width: 100%; top: 0; color: white; }
+.navbar.dark-nav { background: white; color: #1a202c; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.navbar.dark-nav a { color: #1a202c; }
+.logo { font-size: 24px; font-weight: bold; }
+.nav-links { list-style: none; display: flex; gap: 20px; }
+.nav-links a { text-decoration: none; color: inherit; font-weight: 600; }
+
+/* Hero Section */
+.home-bg { background: url('images/boat_bg.jpg') no-repeat center center/cover; height: 100vh; }
+.hero-section { text-align: center; color: white; padding-top: 250px; }
+.hero-section h1 { font-size: 50px; margin-bottom: 10px; }
+.search-bar { margin-top: 30px; display: flex; justify-content: center; gap: 10px; }
+.search-bar select { padding: 15px; width: 500px; border-radius: 25px; border: none; font-size: 16px; }
+.search-btn { padding: 15px 30px; border-radius: 25px; background: #2563eb; color: white; border: none; font-weight: bold; cursor: pointer; }
+
+/* City Details */
+.city-header { text-align: center; padding: 50px; background: white; }
+.tags { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+.tag { padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+.sport-tag { background: #e0e7ff; color: #3730a3; }
+.food-tag { background: #ffedd5; color: #9a3412; }
+.art-tag { background: #f3e8ff; color: #6b21a8; }
+.city-desc { max-width: 800px; margin: auto; color: #4b5563; line-height: 1.6; }
+
+/* Grids & Cards */
+.section-title { margin: 40px 50px 20px; color: #1e293b; border-bottom: 3px solid #1e293b; display: inline-block; padding-bottom: 5px; }
+.section-header { display: flex; justify-content: space-between; margin: 40px 50px 20px; align-items: center; }
+.section-header select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 0 50px; }
+.card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card-content { padding: 20px; }
+.category-text { font-size: 12px; color: #2563eb; font-weight: bold; letter-spacing: 1px; }
+.rating { float: right; background: #2563eb; color: white; padding: 3px 8px; border-radius: 5px; font-size: 14px; }
+.budget-badge { display: inline-block; padding: 4px 8px; border-radius: 5px; font-size: 12px; margin: 10px 0; font-weight: bold; }
+.budget { background: #dcfce7; color: #166534; }
+.expensive { background: #fef08a; color: #854d0e; }
+.price { font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+.book-btn { width: 100%; padding: 10px; background: #eff6ff; color: #2563eb; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
+
+/* Transport Layout */
+.map-container { display: flex; padding: 0 50px 50px; gap: 20px; }
+.transport-info { background: white; width: 40%; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.transport-info ul { margin: 20px 0; padding-left: 20px; line-height: 2; color: #4b5563; }
+.book-cab-btn { width: 100%; padding: 15px; background: #22c55e; color: white; border: none; font-weight: bold; border-radius: 5px; font-size: 16px; cursor: pointer; }
+
+/* Footer */
+.footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 50px 20px; margin-top: 50px; }
+.footer h2 { color: #60a5fa; margin-bottom: 15px; }
