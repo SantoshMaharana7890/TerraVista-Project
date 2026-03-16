@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>TerraVista - Discover Your Next Adventure</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="home-bg">
-    <nav class="navbar">
+    <nav class="navbar dark-nav">
         <div class="logo">TerraVista</div>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="#">Destinations</a></li>
-            <li><a href="#">Hotels & Dining</a></li>
-            <li><a href="#">Transport</a></li>
+            <li><a href="#places">Destinations</a></li>
+            <li><a href="#accommodations">Hotels & Dining</a></li>
+            <li><a href="/about">About Us</a></li>
         </ul>
     </nav>
 
@@ -35,8 +36,15 @@
 
     <footer class="footer">
         <h2>TerraVista</h2>
-        <p>Your ultimate guide to exploring the unseen beauties... Made with passion by final year B.Tech students.</p>
-        <p>&copy; 2026 TerraVista. All rights reserved.</p>
+        <p>Your ultimate guide to exploring the unseen beauties, tasting the authentic cuisines, and experiencing the rich history.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2026 TerraVista Major Project. All rights reserved.</p>
     </footer>
 </body>
 </html>
