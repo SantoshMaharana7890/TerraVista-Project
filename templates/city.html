@@ -5,6 +5,7 @@
     <title>{{ city.name }} - TerraVista</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <nav class="navbar dark-nav">
@@ -13,6 +14,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="#places">Destinations</a></li>
             <li><a href="#accommodations">Hotels & Dining</a></li>
+            <li><a href="/about">About Us</a></li>
         </ul>
     </nav>
 
@@ -42,21 +44,29 @@
 
     <div class="section-header">
         <h2 id="accommodations">Hotels & Dining</h2>
-        <select id="sortOptions" onchange="sortItems()">
-            <option value="default">Sort By</option>
-            <option value="highToLow">Price: High to Low</option>
-            <option value="lowToHigh">Price: Low to High</option>
-            <option value="rating">Top Rated</option>
-        </select>
+        <div class="filter-sort-group">
+            <select id="typeFilter" onchange="filterAndSortItems()">
+                <option value="all">Show All Categories</option>
+                <option value="lodging">Show Hotels & Lodges</option>
+                <option value="dining">Show Restaurants & Cafes</option>
+            </select>
+            
+            <select id="sortOptions" onchange="filterAndSortItems()">
+                <option value="default">Sort By</option>
+                <option value="highToLow">Price: High to Low</option>
+                <option value="lowToHigh">Price: Low to High</option>
+                <option value="rating">Top Rated</option>
+            </select>
+        </div>
     </div>
     
     <div class="grid-container" id="itemGrid">
         {% for item in items %}
-        <div class="card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}">
+        <div class="card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}" data-type="{{ item.type }}">
             <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}">
             <div class="card-content">
                 <h3>{{ item.name }} <span class="rating">⭐ {{ item.rating }}</span></h3>
-                <span class="budget-badge {{ item.budget_category | lower }}">{{ item.budget_category }}</span>
+                <span class="budget-badge {{ item.budget_category | lower | replace(' ', '-') | replace('/', '') }}">{{ item.budget_category }}</span>
                 <p class="price">₹{{ item.price }} <small>/ night or meal</small></p>
                 <button class="book-btn">Direct Book Now</button>
             </div>
@@ -69,23 +79,53 @@
         <div class="transport-info">
             <h3>Local Transport</h3>
             <ul>
-                <li>🚌 BEST Bus Routes covering all major zones.</li>
-                <li>🚕 Yellow-Black Taxis available via meters.</li>
-                <li>🚆 Local Train Network - The fastest way.</li>
+                <li>🚌 Local Bus Routes covering all major tourist zones. Safe and highly connected.</li>
+                <li>🚕 City Taxis available directly from all stations.</li>
+                <li>🚆 Local Train/Metro Network - The fastest way to cross the city.</li>
             </ul>
             <button class="book-cab-btn">Book Local Cab Now</button>
         </div>
         <div id="liveMap" style="height: 400px; width: 60%;"></div>
     </div>
 
+    <footer class="footer">
+        <h2>TerraVista</h2>
+        <p>Your ultimate guide to exploring the unseen beauties, tasting the authentic cuisines, and experiencing the rich history.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p>&copy; 2026 TerraVista Major Project. All rights reserved.</p>
+    </footer>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Simple Beginner-Friendly Sorting Logic
-        function sortItems() {
+        // Upgraded Filter and Sort Logic
+        function filterAndSortItems() {
             let container = document.getElementById("itemGrid");
             let cards = Array.from(container.getElementsByClassName("item-card"));
             let sortValue = document.getElementById("sortOptions").value;
+            let filterValue = document.getElementById("typeFilter").value;
 
+            // Step 1: Filter
+            cards.forEach(card => {
+                let itemType = card.getAttribute("data-type");
+                let isLodging = (itemType === "Hotel" || itemType === "Lodge");
+                let isDining = (itemType === "Restaurant" || itemType === "Cafe");
+
+                if (filterValue === "all" || 
+                   (filterValue === "lodging" && isLodging) || 
+                   (filterValue === "dining" && isDining)) {
+                    card.style.display = "block"; 
+                } else {
+                    card.style.display = "none";  
+                }
+            });
+
+            // Step 2: Sort
             cards.sort(function(a, b) {
                 let priceA = parseInt(a.getAttribute("data-price"));
                 let priceB = parseInt(b.getAttribute("data-price"));
@@ -95,20 +135,21 @@
                 if (sortValue === "lowToHigh") return priceA - priceB;
                 if (sortValue === "highToLow") return priceB - priceA;
                 if (sortValue === "rating") return ratingB - ratingA;
-                return 0;
+                return 0; // Default
             });
 
             container.innerHTML = "";
             cards.forEach(card => container.appendChild(card));
         }
 
-        // Live Map Logic (Leaflet.js)
-        var map = L.map('liveMap').setView([18.9220, 72.8347], 14); // Coordinates for Gateway of India
+        // Live Map Logic 
+        // Note: You can dynamically update these coordinates based on the city if you expand the DB later!
+        var map = L.map('liveMap').setView([18.9220, 72.8347], 14); 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors | TerraVista Routing'
         }).addTo(map);
         L.marker([18.9220, 72.8347]).addTo(map)
-            .bindPopup('MUMBAI<br>City Center (Safe Zone)')
+            .bindPopup('{{ city.name }}<br>City Center (Safe Zone)')
             .openPopup();
     </script>
 </body>
