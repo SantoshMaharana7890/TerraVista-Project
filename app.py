@@ -3,19 +3,24 @@ import mysql.connector
 
 app = Flask(__name__)
 
-# Database connection setup - Change credentials based on your MySQL setup
+# TiDB Database connection setup - Change credentials based on your MySQL setup
 def get_db_connection():
     return mysql.connector.connect(
-        host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com", # Change this to your live database host when deploying
-        user="2F9h8KmcL9CA9h4.root",
-        password="wbwt0FAtE8PtBU3q",
-        database="defaultdb"
+        host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com", # Paste your TiDB Host here
+        user="2F9h8KmcL9CA9h4.root",                            # TiDB uses port 4000
+        password="wbwt0FAtE8PtBU3q",                            # Paste your TiDB User here    
+        database="defaultdb"                                    # Paste your TiDB Password here
     )
 
 @app.route('/')
 def home():
     # Renders the main frontpage
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    # Renders the About Us page
+    return render_template('about.html')
 
 @app.route('/search', methods=['GET'])
 def search_city():
@@ -28,13 +33,13 @@ def search_city():
     city_info = cursor.fetchone()
     
     if not city_info:
-        return "City not found. Please try Mumbai.", 404
+        return "City not found. Please try Mumbai, Hyderabad, Bhubaneswar, Punjab, or Kolkata.", 404
 
-    # Fetch Places
+    # Fetch Tourist Places
     cursor.execute("SELECT * FROM places WHERE city_id = %s", (city_info['id'],))
     places = cursor.fetchall()
 
-    # Fetch Accommodations (Hotels & Restaurants)
+    # Fetch Accommodations (Hotels, Lodges, Restaurants, Cafes)
     cursor.execute("SELECT * FROM accommodations WHERE city_id = %s", (city_info['id'],))
     accommodations = cursor.fetchall()
     
