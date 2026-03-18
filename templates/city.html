@@ -16,23 +16,38 @@
         </div>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="#places">Destinations</a></li>
-            <li><a href="#accommodations">Hotels & Dining</a></li>
+            <li><a href="/#places">Destinations</a></li>
+            <li><a href="/#accommodations">Hotels & Dining</a></li>
             <li><a href="/about">About Us</a></li>
         </ul>
     </nav>
 
-    <header class="city-header" style="background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.4)), url({{ city.image_url | default(url_for('static', filename='images/hero_bg.jpg')) }}); min-height: 60vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
-        
+    <header class="city-header" style="background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.4)), url('{{ city.image_url }}'); min-height: 60vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
         <div style="margin-top: 80px;">
-            <h1 style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.8);">
+            <h1 style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #ffffff;">
                 Welcome to {{ city.name }}
             </h1>
-            <p style="font-size: 1.2rem; color: #f8fafc; max-width: 800px; margin: 0 auto; text-shadow: 1px 1px 5px rgba(0,0,0,0.8);">
-                {{ city.description | default("Explore the hidden gems, rich culture, and breathtaking beauty of this incredible destination.") }}
+            <p style="font-size: 1.2rem; color: #f8fafc; max-width: 800px; margin: 0 auto;">
+                {{ city.description }}
             </p>
         </div>
     </header>
+
+    <div class="section-header">
+        <h2 class="section-title">Explore the City</h2>
+    </div>
+    <div class="map-container">
+        <div class="transport-info">
+            <h3>Local Transit Guide</h3>
+            <ul>
+                <li><i class="fas fa-subway"></i> Best way to travel: Metro & Cabs</li>
+                <li><i class="fas fa-clock"></i> Peak hours: 9AM - 11AM, 6PM - 8PM</li>
+            </ul>
+        </div>
+        <div id="liveMap" style="background: #e2e8f0; width: 100%; height: 400px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #64748b;">
+            [Interactive Map Loading...]
+        </div>
+    </div>
 
     <div id="places">
         <div class="section-header">
@@ -42,23 +57,12 @@
         <div class="grid-container">
             {% for place in places %}
             <div class="card">
-                <img src="{{ place.image_url | default('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800') }}" alt="{{ place.name }}">
+                <img src="{{ place.image_url }}" alt="{{ place.name }}">
                 <div class="card-content">
-                    <h3>
-                        {{ place.name }}
-                        {% if place.rating %}
-                        <span class="rating"><i class="fas fa-star"></i> {{ place.rating }}</span>
-                        {% endif %}
-                    </h3>
-                    <p style="margin-top: 10px; color: #475569; font-size: 0.95rem;">
-                        {{ place.description | default("A beautiful must-visit location full of rich history and culture.") }}
-                    </p>
+                    <h3>{{ place.name }} <span class="rating"><i class="fas fa-star"></i> {{ place.rating }}</span></h3>
+                    <p style="margin-top: 10px; color: #475569; font-size: 0.95rem;">{{ place.description }}</p>
                     <button class="book-btn" style="margin-top: 15px;">Explore Map</button>
                 </div>
-            </div>
-            {% else %}
-            <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #64748b;">
-                <h3>We are still discovering places in {{ city.name }}!</h3>
             </div>
             {% endfor %}
         </div>
@@ -72,35 +76,16 @@
         <div class="grid-container">
             {% for item in items %}
             <div class="card">
-                <img src="{{ item.image_url | default('https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f?auto=format&fit=crop&w=800') }}" alt="{{ item.name }}">
+                <img src="{{ item.image_url }}" alt="{{ item.name }}">
                 <div class="card-content">
-                    <h3>
-                        {{ item.name }}
-                        {% if item.rating %}
-                        <span class="rating"><i class="fas fa-star"></i> {{ item.rating }}</span>
-                        {% endif %}
-                    </h3>
-                    
-                    {% if item.category %}
+                    <h3>{{ item.name }} <span class="rating"><i class="fas fa-star"></i> {{ item.rating }}</span></h3>
                     <span class="budget-badge budget">{{ item.category }}</span>
-                    {% endif %}
-                    
-                    <p style="margin-top: 10px; color: #475569; font-size: 0.95rem;">
-                        {{ item.description | default("A highly-rated, comfortable stay with excellent amenities.") }}
-                    </p>
-                    
-                    {% if item.price %}
+                    <p style="margin-top: 10px; color: #475569; font-size: 0.95rem;">{{ item.description }}</p>
                     <div class="price" style="margin-top: 10px;">
                         ₹{{ item.price }} <span style="font-size: 0.9rem; font-weight: normal; color: #64748b;">/ night</span>
                     </div>
-                    {% endif %}
-                    
                     <button class="book-btn" style="margin-top: 15px;">Book Now</button>
                 </div>
-            </div>
-            {% else %}
-            <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #64748b;">
-                <h3>No accommodations listed yet.</h3>
             </div>
             {% endfor %}
         </div>
@@ -110,16 +95,6 @@
         <h2 style="margin: 0 0 15px 0 !important; font-size: 1.8rem; letter-spacing: -0.5px;">
             <span style="font-weight: 800; color: #ffffff;">Terra</span><span style="color: #3b82f6;">Vista</span>
         </h2>
-        <p style="max-width: 800px; margin: 0 auto !important; color: #94a3b8; font-size: 0.95rem;">
-            Your ultimate guide to exploring the unseen beauties, tasting the authentic cuisines, and experiencing the rich history. 
-        </p>
-        <div class="social-icons" style="margin: 20px 0 !important;">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-        </div>
         <div class="footer-bottom" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.05);">
             <p style="color: #64748b; font-size: 0.9rem;">&copy; 2026 TerraVista. All rights reserved.</p>
         </div>
