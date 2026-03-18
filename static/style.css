@@ -1,79 +1,407 @@
-* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-body { background-color: #f8f9fa; }
+/* ==========================================================================
+   TERRAVISTA MASTER STYLESHEET
+   Core UI, Responsive Grid, and Component Styling
+   ========================================================================== */
 
-/* Navbar */
-.navbar { display: flex; justify-content: space-between; padding: 20px 50px; background: transparent; position: absolute; width: 100%; top: 0; color: white; }
-.navbar.dark-nav { background: white; color: #1a202c; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-.navbar.dark-nav a { color: #1a202c; }
-.logo { font-size: 24px; font-weight: bold; }
-.nav-links { list-style: none; display: flex; gap: 20px; }
-.nav-links a { text-decoration: none; color: inherit; font-weight: 600; }
+/* --- 1. GLOBAL RESETS --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-/* Hero Section */
-.home-bg { background: url('images/boat_bg.jpg') no-repeat center center/cover; height: 100vh; }
-.hero-section { text-align: center; color: white; padding-top: 250px; }
-.hero-section h1 { font-size: 50px; margin-bottom: 10px; }
-.search-bar { margin-top: 30px; display: flex; justify-content: center; gap: 10px; }
-.search-bar select { padding: 15px; width: 500px; border-radius: 25px; border: none; font-size: 16px; }
-.search-btn { padding: 15px 30px; border-radius: 25px; background: #2563eb; color: white; border: none; font-weight: bold; cursor: pointer; }
+body {
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
 
-/* City Details */
-.city-header { text-align: center; padding: 50px; background: white; }
-.tags { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
-.tag { padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; }
-.sport-tag { background: #e0e7ff; color: #3730a3; }
-.food-tag { background: #ffedd5; color: #9a3412; }
-.art-tag { background: #f3e8ff; color: #6b21a8; }
-.city-desc { max-width: 800px; margin: auto; color: #4b5563; line-height: 1.6; }
+/* --- 2. PREMIUM HEADER & FOOTER (Texture + Vignette) --- */
+.navbar, .footer {
+    background-color: #0f172a; 
+    
+    /* Generates a subtle, professional dot texture */
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231e293b' fill-opacity='0.6' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    
+    /* Creates the dark vignette shadow around the inner edges */
+    box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.95);
+    color: #f8fafc;
+}
 
-/* Grids & Cards */
-.section-title { margin: 40px 50px 20px; color: #1e293b; border-bottom: 3px solid #1e293b; display: inline-block; padding-bottom: 5px; }
-.section-header { display: flex; justify-content: space-between; margin: 40px 50px 20px; align-items: center; }
-.section-header select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
-.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 0 50px; }
-.card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-.card img { width: 100%; height: 200px; object-fit: cover; }
-.card-content { padding: 20px; }
-.category-text { font-size: 12px; color: #2563eb; font-weight: bold; letter-spacing: 1px; }
-.rating { float: right; background: #2563eb; color: white; padding: 3px 8px; border-radius: 5px; font-size: 14px; }
-.budget-badge { display: inline-block; padding: 4px 8px; border-radius: 5px; font-size: 12px; margin: 10px 0; font-weight: bold; }
-.budget { background: #dcfce7; color: #166534; }
-.expensive { background: #fef08a; color: #854d0e; }
-.price { font-size: 20px; font-weight: bold; margin-bottom: 15px; }
-.book-btn { width: 100%; padding: 10px; background: #eff6ff; color: #2563eb; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
+.navbar {
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-/* Transport Layout */
-.map-container { display: flex; padding: 0 50px 50px; gap: 20px; }
-.transport-info { background: white; width: 40%; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-.transport-info ul { margin: 20px 0; padding-left: 20px; line-height: 2; color: #4b5563; }
-.book-cab-btn { width: 100%; padding: 15px; background: #22c55e; color: white; border: none; font-weight: bold; border-radius: 5px; font-size: 16px; cursor: pointer; }
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
 
-/* Footer */
-.footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 50px 20px; margin-top: 50px; }
-.footer h2 { color: #60a5fa; margin-bottom: 15px; }
+.nav-links a {
+    color: #f8fafc;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
 
-/* New Filter & Sort Group Styling */
+.nav-links a:hover {
+    color: #3b82f6;
+}
+
+.footer {
+    padding: 40px 20px 20px 20px;
+    text-align: center;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.social-icons a {
+    color: #94a3b8;
+    font-size: 20px;
+    transition: 0.3s;
+    margin: 0 10px;
+}
+
+.social-icons a:hover {
+    color: #3b82f6;
+    transform: translateY(-3px);
+}
+
+/* --- 3. HERO SEARCH BAR & ALIGNMENT --- */
+.hero-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    flex-wrap: wrap; 
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex-grow: 1;
+    min-width: 300px;
+}
+
+/* Force exact 60px height on the Dropdown */
+.hero-search-select {
+    width: 100%;
+    height: 60px; 
+    padding: 0 45px 0 50px;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    font-size: 1.1rem;
+    color: #475569;
+    background-color: #ffffff;
+    appearance: none;
+    outline: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: border 0.3s;
+}
+
+.hero-search-select:focus {
+    border: 2px solid #3b82f6; 
+}
+
+/* Positioning the Icons inside the input */
+.location-icon {
+    position: absolute;
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Force exact 60px height on the Button so it sits flush */
+.hero-search-btn {
+    height: 60px; 
+    padding: 0 40px;
+    border-radius: 50px;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-search-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.6);
+}
+
+/* --- 4. FILTER & SORT DROPDOWNS --- */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 100px auto 20px auto; 
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #0f172a;
+}
+
 .filter-sort-group {
     display: flex;
     gap: 15px;
 }
+
 .filter-sort-group select {
     padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
     background-color: white;
     font-size: 14px;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 600;
+    color: #334155;
     cursor: pointer;
     outline: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-/* Filter & Sort Dropdowns */
-.filter-sort-group { display: flex; gap: 15px; }
-.filter-sort-group select { padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: white; font-size: 14px; font-weight: 600; color: #334155; cursor: pointer; outline: none; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+/* --- 5. THE MASTER GRID (DESKTOP) --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+}
 
-/* Social Icons */
-.social-icons { margin: 20px 0; display: flex; justify-content: center; gap: 20px; }
-.social-icons a { color: #94a3b8; font-size: 24px; transition: 0.3s; }
-.social-icons a:hover { color: #60a5fa; transform: translateY(-3px); }
+/* --- 6. SMART CARD STYLING (Zoom-Proof) --- */
+.card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Magic Aspect Ratio Resizing */
+.card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; 
+    object-fit: cover;
+    display: block;
+}
+
+.card-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating {
+    font-size: 0.9rem;
+    background: #eff6ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #1d4ed8;
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.book-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 10px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.book-btn:hover {
+    background-color: #2563eb;
+}
+
+/* --- 7. BADGES & TAGS --- */
+.budget-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: fit-content;
+}
+
+.premium { background: #fef08a; color: #854d0e; }
+.budget { background: #dcfce7; color: #166534; }
+.expensive { background: #fee2e2; color: #991b1b; }
+
+/* --- 8. LIVE MAP SECTION --- */
+.map-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.transport-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.transport-info ul {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.transport-info li {
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+#liveMap {
+    border-radius: 8px;
+    z-index: 1;
+}
+
+/* --- 9. ABOUT US PAGE STYLING --- */
+.about-container {
+    max-width: 900px;
+    margin: 120px auto 50px auto;
+    padding: 50px;
+    background-color: #fdfbf7;
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2.5L22.5 16 25 13.5V0h2v13.5L29.5 16 32 18.5V20h8v2h-8v1.5L29.5 26 27 28.5V40h-2V28.5L22.5 26 20 23.5V20.5zM5 26v-2h10v2H5zm0-10V14h10v2H5z' fill='%23e2e8f0' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+    border: 12px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1), inset 0 0 15px rgba(0,0,0,0.05);
+    text-align: center;
+    line-height: 2.2;
+    font-size: 1.1rem;
+    color: #334155;
+}
+
+.about-container h1 {
+    font-size: 2.5rem;
+    color: #1e293b;
+    margin-bottom: 30px;
+}
+
+.highlight-pill {
+    background-color: #f1f5f9;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid #cbd5e1;
+    font-weight: 600;
+    color: #0f172a;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* --- 10. RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .map-container {
+        flex-direction: column;
+    }
+    #liveMap {
+        width: 100% !important;
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    .nav-links {
+        display: none;
+    }
+    .grid-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 80px;
+    }
+    .filter-sort-group {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+    }
+    .filter-sort-group select {
+        width: 100%;
+    }
+    .city-header h1 {
+        font-size: 2.2rem !important;
+    }
+    .about-container {
+        padding: 30px 20px;
+        margin-top: 100px;
+        border-width: 8px;
+    }
+}
