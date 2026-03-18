@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TerraVista -  Explore.Experience.Enjoy </title>
+    <title>TerraVista - Discover India</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -22,9 +22,10 @@
         </ul>
     </nav>
 
-    <header class="city-header" style="background-image: url({{ url_for('static', filename='images/hero_bg.jpg') }}); min-height: 100vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
+    <header class="city-header" style="background-image: url('{{ url_for("static", filename="images/hero_bg.jpg") }}'); min-height: 100vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
         
-        <div style="margin-top: 60px;"> <h1 style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
+        <div style="margin-top: 60px;">
+            <h1 style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
                 Experience the True Essence of India
             </h1>
             <p style="font-size: 1.2rem; color: #f8fafc; max-width: 800px; margin: 0 auto 40px auto; text-shadow: 1px 1px 5px rgba(0,0,0,0.8);">
@@ -32,10 +33,8 @@
             </p>
             
             <form action="/search" method="GET" class="hero-search-form">
-                
                 <div class="search-input-wrapper">
                     <i class="fas fa-map-marker-alt location-icon"></i>
-                    
                     <select name="city" required class="hero-search-select">
                         <option value="" disabled selected>Search for Mumbai, Hyderabad, Bhubaneswar, Punjab, Kolkata...</option>
                         <option value="Mumbai">Mumbai</option>
@@ -44,14 +43,9 @@
                         <option value="Punjab">Punjab</option>
                         <option value="Kolkata">Kolkata</option>
                     </select>
-                    
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </div>
-
-                <button type="submit" class="hero-search-btn">
-                    Search
-                </button>
-                
+                <button type="submit" class="hero-search-btn">Search</button>
             </form>
         </div>
     </header>
