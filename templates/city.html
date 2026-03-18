@@ -16,18 +16,18 @@
         </div>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="/#places">Destinations</a></li>
-            <li><a href="/#accommodations">Hotels & Dining</a></li>
+            <li><a href="#places">Destinations</a></li>
+            <li><a href="#accommodations">Hotels & Dining</a></li>
             <li><a href="/about">About Us</a></li>
         </ul>
     </nav>
 
-    <header class="city-header" style="background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.4)), url('{{ city.image_url }}'); min-height: 60vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
+    <header class="city-header" style="background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.3)), url('{{ city.image_url }}'); min-height: 60vh; background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px;">
         <div style="margin-top: 80px;">
-            <h1 style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #ffffff;">
+            <h1 style="font-size: 3.5rem; font-weight: bold; margin-bottom: 15px; color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">
                 Welcome to {{ city.name }}
             </h1>
-            <p style="font-size: 1.2rem; color: #f8fafc; max-width: 800px; margin: 0 auto;">
+            <p style="font-size: 1.2rem; color: #f8fafc; max-width: 800px; margin: 0 auto; text-shadow: 1px 1px 5px rgba(0,0,0,0.8);">
                 {{ city.description }}
             </p>
         </div>
@@ -51,7 +51,13 @@
 
     <div id="places">
         <div class="section-header">
-            <h2 class="section-title">Top Destinations in {{ city.name }}</h2>
+            <h2 class="section-title">Top Destinations</h2>
+            <div class="filter-sort-group">
+                <select id="sortPlaces">
+                    <option value="default">Sort Options</option>
+                    <option value="popular">Most Popular</option>
+                </select>
+            </div>
         </div>
         
         <div class="grid-container">
@@ -71,6 +77,13 @@
     <div id="accommodations">
         <div class="section-header">
             <h2 class="section-title">Hotels & Dining</h2>
+            <div class="filter-sort-group">
+                <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="Luxury">Luxury</option>
+                    <option value="Budget">Budget</option>
+                </select>
+            </div>
         </div>
         
         <div class="grid-container">
@@ -92,7 +105,7 @@
     </div>
 
     <footer class="footer">
-        <h2 style="margin: 0 0 15px 0 !important; font-size: 1.8rem; letter-spacing: -0.5px;">
+        <h2 style="margin: 0 0 15px 0; font-size: 1.8rem; letter-spacing: -0.5px;">
             <span style="font-weight: 800; color: #ffffff;">Terra</span><span style="color: #3b82f6;">Vista</span>
         </h2>
         <div class="footer-bottom" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.05);">
