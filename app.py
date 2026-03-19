@@ -6,10 +6,10 @@ app = Flask(__name__)
 # Database connection setup - Remember to paste your TiDB credentials here!
 def get_db_connection():
     return mysql.connector.connect(
-        host="YOUR_TIDB_HOST",            # Paste your TiDB Host here
-        port=4000,                        # TiDB uses port 4000
-        user="YOUR_TIDB_USER",            # Paste your TiDB User here
-        password="YOUR_TIDB_PASSWORD",    # Paste your TiDB Password here
+        host="gateway01.ap-southeast-1.prod.aws.tidbcloud.com",
+        port=4000,
+        user="2F9h8KmcL9CA9h4.root",
+        password="wbwt0FAtE8PtBU3q",
         database="defaultdb"
     )
 
