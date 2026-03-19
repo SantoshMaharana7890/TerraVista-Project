@@ -164,6 +164,7 @@ body {
 .search-btn:hover {
     background-color: #2563eb;
     transform: translateY(-2px);
+    box-shadow: 0 0 10px #007bff, 0 0 30px #007bff, 0 0 50px #007bff;
 }
 
 /* --- FOOTER --- */
