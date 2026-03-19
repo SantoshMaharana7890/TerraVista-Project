@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TerraVista - Discover Your Next Adventure</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-bg">
+    <nav class="navbar">
+        <div class="logo">TerraVista</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">Destinations</a></li>
+            <li><a href="#">Hotels & Dining</a></li>
+            <li><a href="#">Transport</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Discover Your Next Adventure</h1>
+        <p>Find the best historical sites, hidden nature spots, luxury hotels, and transport routes in India's top cities.</p>
+        
+        <form action="/search" method="GET" class="search-bar">
+            <select name="city" required>
+                <option value="" disabled selected>Search for Mumbai, Hyderabad, Bhubaneswar, Punjab, Kolkata...</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Bhubaneswar">Bhubaneswar</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Kolkata">Kolkata</option>
+            </select>
+            <button type="submit" class="search-btn">Search</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <h2>TerraVista</h2>
+        <p>Your ultimate guide to exploring the unseen beauties... Made with passion by final year B.Tech students.</p>
+        <p>&copy; 2026 TerraVista Major Project. All rights reserved.</p>
+    </footer>
+</body>
+</html>
