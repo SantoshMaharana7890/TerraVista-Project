@@ -16,10 +16,9 @@ body {
     line-height: 1.6;
 }
 
-/* --- MATTE HEADER & FOOTER OVERRIDE --- */
+/* --- NAVIGATION BAR --- */
 .navbar, .navbar.dark-nav {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Premium Matte */
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
+    background-color: #0f172a; 
     padding: 15px 50px;
     display: flex;
     justify-content: space-between;
@@ -28,6 +27,13 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.logo {
+    color: #f8fafc;
+    font-size: 1.6rem;
+    font-weight: 800;
 }
 
 .nav-links {
@@ -48,6 +54,17 @@ body {
     color: #3b82f6; 
 }
 
+/* --- BACKGROUND IMAGES --- */
+.home-bg {
+    background-image: url('/static/images/hero_bg.jpg'); /* Fixed Syntax */
+    background-size: cover;
+    background-position: center;
+    background-attachment:  fixed; /* Creates that immersive parallax effect */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .city-header {
     margin-top: 80px; 
     padding: 60px 20px;
@@ -56,6 +73,104 @@ body {
     background-position: center;
 }
 
+/* --- HERO SECTION & FIXED TEXT SHADOWS --- */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    /* Clean, dark drop shadow just like Image 2 */
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.7); 
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #f8fafc;
+    max-width: 800px;
+    /* Clean, dark drop shadow */
+    text-shadow: 1px 2px 6px rgba(0,0,0,0.8);
+}
+
+/* --- NEW FLEXBOX SEARCH BAR --- */
+.search-bar-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 700px;
+    margin-top: 35px;
+    flex-wrap: wrap; /* Allows stacking on mobile */
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1; /* Takes up remaining space */
+    min-width: 300px;
+}
+
+.city-select {
+    width: 100%;
+    height: 55px; /* Locked height */
+    border-radius: 30px;
+    border: none;
+    padding: 0 45px; /* Room for left and right icons */
+    font-size: 1.05rem;
+    color: #475569;
+    appearance: none;
+    outline: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+.location-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1.1rem;
+    z-index: 2;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none; /* Lets clicks pass through to the select box */
+}
+
+.search-btn {
+    height: 55px; /* Matches input height exactly */
+    padding: 0 35px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* --- SECTION HEADERS & GRID --- */
 .section-title, .section-header h2 {
     text-align: left;
     margin: 40px 0 20px 0;
@@ -88,7 +203,6 @@ body {
     color: #334155;
     cursor: pointer;
     outline: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .grid-container {
@@ -107,7 +221,7 @@ body {
     border-radius: 12px;
     overflow: hidden; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     height: 100%; 
 }
 
@@ -161,11 +275,6 @@ body {
     border-radius: 6px;
     cursor: pointer;
     font-weight: 600;
-    transition: background-color 0.2s;
-}
-
-.book-btn:hover {
-    background-color: #2563eb;
 }
 
 .budget-badge {
@@ -215,29 +324,21 @@ body {
     z-index: 1; 
 }
 
+/* --- FOOTER --- */
 .footer {
-    padding: 20px 20px 15px 20px !important;
+    padding: 40px 20px 20px 20px;
     text-align: center;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); /* Premium Matte */
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
+    background-color: #0f172a; 
     color: #94a3b8;
-    margin-top: 50px;
 }
 
 .footer h2 {
-    margin: 0 0 5px 0 !important; 
-    font-size: 1.5rem;
+    margin-bottom: 10px;
     color: #ffffff;
 }
 
-.footer p {
-    margin: 5px 0 !important;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
 .social-icons {
-    margin: 15px 0 !important;
+    margin: 20px 0;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -254,6 +355,16 @@ body {
     transform: translateY(-3px); 
 }
 
+.footer-bottom {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (Mobile & Tablet Support)
+   ========================================================================== */
+
 @media (max-width: 992px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr); 
@@ -264,85 +375,41 @@ body {
     #liveMap {
         width: 100% !important; 
     }
+    .hero-title {
+        font-size: 2.8rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .navbar.dark-nav { padding: 15px 20px; }
-    .nav-links { display: none; }
-    .grid-container { grid-template-columns: 1fr; padding: 10px; }
-    .section-header { flex-direction: column; align-items: flex-start; }
-    .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
-    .filter-sort-group select { width: 100%; }
-    .city-header h1 { font-size: 2rem !important; }
-}
-
-/* ==========================================================================
-   SURGICAL UPGRADES: Hero Background, Text Shadows, & Search Button
-   ========================================================================== */
-
-.home-bg {
-    background-image: url('/static/images/hero_bg.jpg');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-}
-
-.hero-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
-    padding: 0 20px;
-}
-
-/* Text Shadow applied to the Hero and City Headers */
-.hero-section h1, .city-header h1 {
-    color: #ffffff;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-}
-
-.hero-section p, .city-desc {
-    color: #f8fafc;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.9);
-    font-weight: 500;
-}
-
-/* Blue Button Hover and Search Bar Alignment */
-.search-bar {
-    margin-top: 30px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.search-bar select {
-    padding: 15px 20px;
-    border-radius: 50px;
-    border: none;
-    font-size: 1.1rem;
-    outline: none;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-.search-btn {
-    padding: 15px 35px;
-    background-color: #3b82f6;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    cursor: pointer;
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
-    transition: all 0.3s ease;
-}
-
-.search-btn:hover {
-    background-color: #1d4ed8;
-    transform: translateY(-2px);
-    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.6);
+    .navbar.dark-nav, .navbar {
+        padding: 15px 20px;
+    }
+    .nav-links {
+        display: none; 
+    }
+    .grid-container {
+        grid-template-columns: 1fr; 
+        padding: 10px;
+    }
+    .section-header {
+        flex-direction: column; 
+        align-items: flex-start;
+    }
+    .filter-sort-group {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+    }
+    .filter-sort-group select {
+        width: 100%; 
+    }
+    .hero-title {
+        font-size: 2.2rem; 
+    }
+    .search-input-wrapper {
+        width: 100%; /* Forces search input full width on mobile */
+    }
+    .search-btn {
+        width: 100%; /* Forces search button full width on mobile */
+    }
 }
