@@ -75,7 +75,7 @@ body {
     /* The background image is now safely locked inside this section */
     background-image: url('/static/images/hero_bg.jpg');
     background-size: cover;
-    background-position: bottom center; /* Forces the bottom of the image (the boats) to ALWAYS be visible just above the footer */
+    background-position: center; /* Forces the bottom of the image (the boats) to ALWAYS be visible just above the footer */
 }
 
 .hero-title {
