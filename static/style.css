@@ -1,8 +1,9 @@
 /* ==========================================================================
    TERRAVISTA MASTER STYLESHEET
-   Includes Global Styles, Dark Homepage, and Light City Page
+   Consolidated styling for Home, City, and About pages.
    ========================================================================== */
 
+/* --- 1. GLOBAL RESETS & TYPOGRAPHY --- */
 * {
     margin: 0;
     padding: 0;
@@ -16,18 +17,18 @@ body {
     line-height: 1.6;
 }
 
-.home-bg {
+/* Flexbox layout to ensure footer stays at the bottom of the screen */
+.home-bg, .about-bg {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 .city-page-bg {
-    background-color: #f8fafc; /* Crisp light grey background */
+    background-color: #f8fafc;
 }
 
-/* --- NAVIGATION BARS --- */
-/* Dark Nav for Home Page */
+/* --- 2. UNIFIED DARK NAVBAR --- */
 .navbar {
     background-color: #0f172a; 
     padding: 15px 50px;
@@ -38,7 +39,7 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000; 
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
 }
 
 .navbar .logo, .navbar .nav-links a {
@@ -58,16 +59,16 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    transition: all 0.3s ease; /* Ensure smooth transition for the glow */
+    transition: all 0.3s ease;
 }
 
-/* Glowing Navbar Links */
+/* Glowing Neon Hover Effect */
 .nav-links a:hover {
-    color: #117bfd !important; 
+    color: #60a5fa !important; 
     text-shadow: 0 0 10px rgba(96, 165, 250, 0.8), 0 0 20px rgba(96, 165, 250, 0.5);
 }
 
-/* --- HOME PAGE HERO --- */
+/* --- 3. HOME PAGE: HERO & SEARCH --- */
 .hero-section {
     flex: 1;
     display: flex;
@@ -79,7 +80,7 @@ body {
     width: 100%;
     background-image: url('/static/images/hero_bg.jpg');
     background-size: cover;
-    background-position: middle center;
+    background-position: bottom center;
 }
 
 .hero-title {
@@ -90,7 +91,7 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #f8fafc;
     max-width: 800px;
     text-shadow: 1px 2px 6px rgba(0,0,0,0.8);
@@ -117,19 +118,12 @@ body {
     box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); transition: all 0.3s ease;
 }
 
-/* Glowing Search Button Effect */
 .search-btn:hover { 
-    background-color: #0073ff; /* Lightens the blue slightly */
-    transform: translateY(-2px); 
-    /* The double shadow creates a strong, layered neon glow effect */
-    box-shadow: 0 0 15px rgba(65, 138, 255, 0.612), 0 0 30px rgba(100, 160, 255, 0.606); 
+    background-color: #60a5fa; transform: translateY(-2px); 
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.5); 
 }
 
-/* ==========================================================================
-   CITY PAGE SPECIFIC STYLES (Light Theme)
-   ========================================================================== */
-
-/* City Header Content */
+/* --- 4. CITY PAGE: HEADERS & TAGS --- */
 .city-title-container {
     padding: 120px 20px 20px 20px;
     text-align: center;
@@ -142,79 +136,28 @@ body {
     color: #0f172a;
 }
 
-.city-tags {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.tag {
-    padding: 8px 18px;
-    border-radius: 30px;
-    font-weight: 700;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
+.city-tags { display: flex; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+.tag { padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
 .tag-blue { background: #e0e7ff; color: #3730a3; }
 .tag-orange { background: #ffedd5; color: #9a3412; }
 .tag-purple { background: #f3e8ff; color: #6b21a8; }
 
-.city-description {
-    max-width: 900px;
-    margin: 20px auto;
-    color: #475569;
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
+.city-description { max-width: 900px; margin: 20px auto; color: #475569; font-size: 1.1rem; line-height: 1.8; }
 
-/* Sections & Grids */
-.section-wrapper {
-    max-width: 1200px;
-    margin: 40px auto 60px auto;
-    padding: 0 20px;
-}
-
-.section-heading {
-    font-size: 2rem;
-    color: #0f172a;
-    border-bottom: 3px solid #1e3a8a; /* Blue underline from screenshot */
-    display: inline-block;
-    padding-bottom: 8px;
-    margin-bottom: 30px;
-}
-
-.section-header-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 10px;
-}
+.section-wrapper { max-width: 1200px; margin: 40px auto 60px auto; padding: 0 20px; }
+.section-heading { font-size: 2rem; color: #0f172a; border-bottom: 3px solid #1e3a8a; display: inline-block; padding-bottom: 8px; margin-bottom: 30px; }
+.section-header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
 
 .filter-sort-group { display: flex; gap: 15px; }
-.filter-sort-group select {
-    padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1;
-    background-color: white; font-size: 14px; font-weight: 600; color: #334155;
-    cursor: pointer; outline: none;
-}
+.filter-sort-group select { padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: white; font-size: 14px; font-weight: 600; color: #334155; cursor: pointer; outline: none; }
 
-/* The 3-Column UI Grid */
-.grid-container-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
-    gap: 30px;
-}
+.grid-container-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 
-/* Clean White UI Cards */
+/* --- 5. MASTER CARD UI (Fixes Misalignment) --- */
 .ui-card {
     display: flex;
     flex-direction: column;
+    height: 100%; /* Locks height across rows */
     background: #ffffff;
     border-radius: 12px;
     border: 1px solid #e2e8f0;
@@ -223,285 +166,100 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.ui-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
+.ui-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
 
-.card-img {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-}
+.card-img { width: 100%; height: 220px; object-fit: cover; display: block; }
 
 .card-content {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex-grow: 1; /* Pushes bottom items down */
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .category-text {
-    color: #2563eb;
-    font-size: 0.8rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
+    font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+    color: #2563eb; margin-bottom: 8px; align-self: flex-start;
 }
 
-.title-rating-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
+.title-rating-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; width: 100%; }
 
-.card-title {
-    font-size: 1.3rem;
-    color: #0f172a;
-    margin-bottom: 8px;
-}
+.card-title { font-size: 1.3rem; color: #0f172a; margin: 0; align-self: stretch; }
 
 .card-desc {
-    color: #475569;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    color: #475569; font-size: 0.95rem; line-height: 1.6; margin: 0 0 15px 0;
+    flex-grow: 1; /* Fills middle gap to align bottom elements perfectly */
+    width: 100%;
 }
 
-/* Badges & Buttons */
-.rating-badge {
-    background: #3b82f6;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
+.rating-badge { background: #3b82f6; color: white; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; white-space: nowrap; }
 
-.budget-badge {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    width: fit-content;
-}
-
+.budget-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 800; margin-bottom: 15px; width: fit-content; }
 .premium { background: #fef08a; color: #854d0e; } 
 .budget { background: #dcfce7; color: #166534; }  
 .expensive { background: #fef08a; color: #854d0e; }
 
-.price {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-top: auto;
-    margin-bottom: 15px;
-}
+.price { font-size: 1.4rem; font-weight: 800; color: #0f172a; margin-top: auto; margin-bottom: 15px; width: 100%; }
 
 .book-btn-light {
-    background-color: #eff6ff;
-    color: #1d4ed8;
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    margin-top: auto; /* Absolute bottom alignment */
+    background-color: #eff6ff; color: #1d4ed8; width: 100%; padding: 12px;
+    border-radius: 8px; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; transition: background-color 0.2s;
 }
 
 .book-btn-light:hover { background-color: #dbeafe; }
 
-/* Transport Layout */
-.transport-layout {
-    display: flex;
-    gap: 30px;
-    align-items: stretch; /* Makes map and card equal height */
-}
+/* --- 6. TRANSPORT & MAP --- */
+.transport-layout { display: flex; gap: 30px; align-items: stretch; }
+.transport-card { flex: 0 0 350px; background: white; padding: 30px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; }
+.transport-list { list-style: none; margin-bottom: 20px; color: #475569; }
+.transport-list li { margin-bottom: 15px; font-size: 1rem; line-height: 1.5; }
 
-.transport-card {
-    flex: 0 0 350px; /* Fixed width for text */
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    display: flex;
-    flex-direction: column;
-}
-
-.transport-list {
-    list-style: none;
-    margin-bottom: 20px;
-    color: #475569;
-}
-
-.transport-list li {
-    margin-bottom: 15px;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.btn-green {
-    margin-top: auto;
-    background-color: #22c55e;
-    color: white;
-    width: 100%;
-    padding: 15px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
+.btn-green { margin-top: auto; background-color: #22c55e; color: white; width: 100%; padding: 15px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.2s; }
 .btn-green:hover { background-color: #16a34a; }
 
-.map-wrapper {
-    flex: 1; /* Map takes remaining space */
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    display: flex;
-    flex-direction: column;
-}
+.map-wrapper { flex: 1; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; }
+.map-header { background: white; padding: 12px 20px; font-weight: 600; color: #475569; border-bottom: 1px solid #e2e8f0; }
 
-.map-header {
-    background: white;
-    padding: 12px 20px;
-    font-weight: 600;
-    color: #475569;
-    border-bottom: 1px solid #e2e8f0;
-}
+/* --- 7. ABOUT US PAGE --- */
+.about-main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 20px 60px 20px; }
+.about-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+.feature-card { background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border-top: 4px solid #3b82f6; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.feature-icon { font-size: 3rem; color: #3b82f6; margin-bottom: 20px; }
+.feature-card h3 { font-size: 1.3rem; color: #0f172a; margin-bottom: 12px; }
+.feature-card p { color: #475569; font-size: 0.95rem; line-height: 1.6; }
 
-/* --- FOOTER --- */
-.footer {
-    padding: 40px 20px 20px 20px;
-    text-align: center;
-    background-color: #0f172a; 
-    color: #94a3b8;
-    margin-top: auto;
-}
+.developer-section { margin-top: 60px; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 50px; border-radius: 12px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.developer-section p { max-width: 800px; margin: 0 auto; line-height: 1.8; color: #cbd5e1; font-size: 1.1rem; }
 
+/* --- 8. FOOTER --- */
+.footer { padding: 40px 20px 20px 20px; text-align: center; background-color: #0f172a; color: #94a3b8; margin-top: auto; }
 .footer h2 { margin-bottom: 10px; color: #ffffff; }
 .social-icons { margin: 20px 0; display: flex; justify-content: center; gap: 20px; }
 .social-icons a { color: #94a3b8; font-size: 20px; transition: 0.3s; }
 .social-icons a:hover { color: #3b82f6; transform: translateY(-3px); }
 .footer-bottom { margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
 
-
-/* ==========================================================================
-   RESPONSIVE (Mobile & Tablet)
-   ========================================================================== */
-
+/* --- 9. RESPONSIVE MEDIA QUERIES --- */
 @media (max-width: 992px) {
-    .grid-container-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-container-3, .about-features { grid-template-columns: repeat(2, 1fr); }
     .transport-layout { flex-direction: column; }
     .transport-card { flex: auto; }
 }
 
 @media (max-width: 768px) {
-    .navbar.dark-nav, .navbar, .navbar-light { padding: 15px; flex-direction: column; gap: 15px; }
+    .navbar { padding: 15px; flex-direction: column; gap: 15px; }
     .nav-links { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; gap: 15px; }
     
-    .grid-container-3 { grid-template-columns: 1fr; }
+    .grid-container-3, .about-features { grid-template-columns: 1fr; }
     
     .section-header-flex { flex-direction: column; align-items: flex-start; }
     .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
     .filter-sort-group select { width: 100%; }
     
     .city-title { font-size: 2.2rem; }
-}
-
-/* ==========================================================================
-   ABOUT US PAGE SPECIFIC STYLES
-   ========================================================================== */
-
-.about-bg {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f8fafc;
-}
-
-.about-main {
-    flex: 1; /* Pushes the footer to the bottom */
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 120px 20px 60px 20px;
-}
-
-.about-features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.feature-card {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    text-align: center;
-    border-top: 4px solid #3b82f6;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.feature-icon {
-    font-size: 3rem;
-    color: #3b82f6;
-    margin-bottom: 20px;
-}
-
-.feature-card h3 {
-    font-size: 1.3rem;
-    color: #0f172a;
-    margin-bottom: 12px;
-}
-
-.feature-card p {
-    color: #475569;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
-
-.developer-section {
-    margin-top: 60px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    color: white;
-    padding: 50px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.developer-section p {
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
-    color: #cbd5e1;
-    font-size: 1.1rem;
-}
-
-/* Make About features stack on mobile */
-@media (max-width: 768px) {
-    .about-features {
-        grid-template-columns: 1fr;
-    }
-    .developer-section {
-        padding: 40px 20px;
-    }
+    .developer-section { padding: 40px 20px; }
 }
