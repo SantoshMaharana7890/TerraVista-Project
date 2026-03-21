@@ -28,7 +28,7 @@
         <form action="/search" method="get" class="search-bar-container">
             <div class="search-input-wrapper" style="display: flex; align-items: center; width: 100%;">
                 <i class="fas fa-map-marker-alt" style="margin-left: 15px; color: #94a3b8;"></i>
-                <select name="city" class="city-select" required>
+                <select name="city" class="city-select" required style="-webkit-appearance: none; -moz-appearance: none; appearance: none; text-align: center; cursor: pointer;">
                     <option value="" disabled selected>Select a destination (Mumbai, Hyderabad, Bhubaneswar, Punjab, Kolkata...)</option>
                     <option value="Mumbai">Mumbai - The City of Dreams</option>
                     <option value="Hyderabad">Hyderabad - The City of Pearls</option>
@@ -37,10 +37,10 @@
                     <option value="Kolkata">Kolkata - The City of Joy</option>
                 </select>
                 <i class="fas fa-chevron-down dropdown-icon"></i>
-                <button type="submit" class="search-btn">
-                    <i class="fas fa-search"></i> Search
-                </button>
             </div>
+
+            <button type="submit" class="search-btn">Search</button>
+
         </form>
 
         <div style="margin-top: 40px; display: flex; gap: 30px; color: #cbd5e1;">
