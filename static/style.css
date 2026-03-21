@@ -13,7 +13,9 @@
 body {
     background-color: #f8fafc; 
     color: #1e293b;
-    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .home-bg {
@@ -395,26 +397,27 @@ body {
 }
 
 /* --- FOOTER --- */
+
+/* --- THE THINNER FOOTER FIX --- */
 .footer {
-    padding: 40px 20px 20px 20px;
-    text-align: center;
-    background-color: #0f172a; 
+    margin-top: auto; /* Docks to bottom */
+    background: #0f172a;
     color: #94a3b8;
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-    width: 100%;
+    padding: 30px 20px 20px 20px; /* Reduced padding from 60px down to 30px */
+    text-align: center;
 }
 
-.footer h2 { margin-bottom: 10px; color: #ffffff; }
-.social-icons { margin: 20px 0; display: flex; justify-content: center; gap: 20px; }
-.social-icons a { color: #94a3b8; font-size: 20px; transition: 0.3s; }
-.social-icons a:hover { color: #3b82f6; transform: translateY(-3px); }
-.footer-bottom { margin-top: 15px; padding-top: 20px; width: 100%; max-width: 800px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.footer h2 { color: white; margin-bottom: 5px; font-size: 1.5rem; }
+.footer > p { max-width: 600px; margin: 0 auto; font-size: 0.9rem; }
 
-/* --- ABOUT PAGE SPECIFIC FIXES --- */
+/* Squeezed social icons */
+.social-icons { margin: 15px 0; display: flex; justify-content: center; gap: 20px; }
+.social-icons a { color: #94a3b8; font-size: 1.3rem; transition: 0.3s; }
+.social-icons a:hover { color: white; transform: translateY(-3px); }
+
+/* Thinner bottom bar */
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; font-size: 0.85rem; }
+
 .about-main {
     flex: 1;
     width: 100%;
