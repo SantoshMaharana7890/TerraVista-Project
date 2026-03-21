@@ -17,32 +17,35 @@
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
             <li><a href="/about">About Us</a></li>
-            <li><a href="https://github.com/your-username/terravista" target="_blank">View Code</a></li>
         </ul>
     </nav>
 
     <header class="hero-section">
         <h1 class="hero-title" style="margin-bottom: 20px;">Experience the True Essence of India</h1>
-        <p class="hero-subtitle">
+        
+        <p class="hero-subtitle" style="color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.9); font-weight: 500;">
             Discover heritage, savor authentic cuisines, and stay in comfort. Curate your perfect journey today.
         </p>
 
-        <form action="/search" method="get" style="display: flex; background: #ffffff; padding: 8px 8px 8px 25px; border-radius: 50px; width: 100%; max-width: 750px; box-shadow: 0 15px 40px rgba(0,0,0,0.4); align-items: center; gap: 15px; margin-top: 10px;">
+        <form action="/search" method="get" style="display: flex; gap: 15px; width: 100%; max-width: 800px; margin-top: 20px; justify-content: center;">
             
-            <i class="fas fa-map-marker-alt" style="color: #94a3b8; font-size: 1.2rem;"></i>
+            <div style="display: flex; align-items: center; background: #ffffff; padding: 12px 25px; border-radius: 50px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                <i class="fas fa-map-marker-alt" style="color: #94a3b8; font-size: 1.2rem; margin-right: 15px;"></i>
+                
+                <select name="city" required style="flex: 1; border: none; outline: none; font-size: 1.1rem; background: transparent; cursor: pointer; color: #334155; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                    <option value="" disabled selected>Select a destination (Mumbai, Hyderabad, Bhubaneswar, Punjab)...</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Bhubaneswar">Bhubaneswar</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Kolkata">Kolkata</option>
+                </select>
+            </div>
             
-            <select name="city" required style="flex: 1; border: none; outline: none; font-size: 1.1rem; background: transparent; cursor: pointer; color: #334155;">
-                <option value="" disabled selected>Select a destination (Mumbai, Hyderabad, Bhubaneswar, Punjab)...</option>
-                <option value="Mumbai">Mumbai</option>
-                <option value="Hyderabad">Hyderabad</option>
-                <option value="Bhubaneswar">Bhubaneswar</option>
-                <option value="Punjab">Punjab</option>
-                <option value="Kolkata">Kolkata</option>
-            </select>
-            
-            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 14px 40px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.05rem; transition: background 0.3s;">
+            <button type="submit" style="background: #3b82f6; color: white; border: none; padding: 0 40px; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(59,130,246,0.4); transition: transform 0.2s;">
                 Search
             </button>
+            
         </form>
     </header>
     
@@ -64,4 +67,5 @@
     </footer>
 
 </body>
-</html>
+/</html> nbvf7z0l̥'/
+120
