@@ -23,16 +23,17 @@
     <header class="hero-section">
         <h1 class="hero-title" style="margin-bottom: 20px;">Experience the True Essence of India</h1>
         
-        <p class="hero-subtitle" style="color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.9); font-weight: 500;">
+        <p class="hero-subtitle" style="color: #ffffff; text-shadow: 2px 2px 8px rgba(0,0,0,0.9); font-weight: 800;">
             Discover heritage, savor authentic cuisines, and stay in comfort. Curate your perfect journey today.
         </p>
 
         <form action="/search" method="get" style="display: flex; gap: 15px; width: 100%; max-width: 800px; margin-top: 20px; justify-content: center;">
             
-            <div style="display: flex; align-items: center; background: #ffffff; padding: 12px 25px; border-radius: 50px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div style="display: flex; align-items: center; background: #ffffff; padding: 12px 25px; border-radius: 50px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative;">
+                
                 <i class="fas fa-map-marker-alt" style="color: #94a3b8; font-size: 1.2rem; margin-right: 15px;"></i>
                 
-                <select name="city" required style="flex: 1; border: none; outline: none; font-size: 1.1rem; background: transparent; cursor: pointer; color: #334155; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
+                <select name="city" required style="flex: 1; border: none; outline: none; font-size: 1.1rem; background: transparent; cursor: pointer; color: #334155; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 30px;">
                     <option value="" disabled selected>Select a destination (Mumbai, Hyderabad, Bhubaneswar, Punjab)...</option>
                     <option value="Mumbai">Mumbai</option>
                     <option value="Hyderabad">Hyderabad</option>
@@ -40,7 +41,8 @@
                     <option value="Punjab">Punjab</option>
                     <option value="Kolkata">Kolkata</option>
                 </select>
-                <i class="fas fa-chevron-down dropdown-icon"></i>
+
+                <i class="fas fa-chevron-down" style="position: absolute; right: 25px; color: #94a3b8; pointer-events: none;"></i>
             </div>
             
             <button type="submit" class="search-btn">Search</button>
