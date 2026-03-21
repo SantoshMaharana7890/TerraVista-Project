@@ -6,17 +6,18 @@
     <title>{{ city.name }} - TerraVista</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=6.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0"></script>
 </head>
+    
 <body class="city-page-bg">
 
     <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-globe-americas" style="color: #3b82f6;"></i> TerraVista
-        </div>
+        <a href="/" class="logo">
+            <i class="fas fa-globe-americas" style="color: #3b82f6; font-size: 28px;"></i>
+            <span style="font-weight: 800; font-size: 1.6rem; letter-spacing: -0.5px; color: #f8fafc;">Terra<span style="color: #3b82f6;">Vista</span></span>
+        </a>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
             <li><a href="#places">Destinations</a></li>
@@ -40,7 +41,6 @@
 
     <div id="places" class="section-wrapper">
         <h2 class="section-heading">Top Places to Visit</h2>
-        
         <div class="grid-container-3">
             {% for place in places %}
             <div class="ui-card">
@@ -83,8 +83,9 @@
                         <span class="rating-badge"><i class="fas fa-star" style="font-size: 0.8rem;"></i> {{ item.rating }}</span>
                     </div>
                     <span class="budget-badge {{ item.budget_category | lower | replace(' ', '-') | replace('/', '') }}">{{ item.budget_category }}</span>
-                    <p class="price">₹{{ item.price }} <small>/ night or meal</small></p>
-                    <button class="book-btn-light">Direct Book Now</button>
+                    <p class="card-desc">{{ item.description | default('Experience exceptional service and local flavor.') }}</p>
+                    <p class="price">₹{{ item.price }} <small>/ service</small></p>
+                    <button class="book-btn-light">Book Now</button>
                 </div>
             </div>
             {% endfor %}
@@ -96,20 +97,24 @@
         
         <div class="transport-layout">
             <div class="transport-card">
-                <h3 style="color: #1e3a8a; margin-bottom: 20px;"><i class="fas fa-bus"></i> Local Transport</h3>
+                <h3 style="color: #1e3a8a; margin-bottom: 20px;"><i class="fas fa-bus"></i> Local Transit</h3>
                 <ul class="transport-list">
-                    <li>🚌 BEST Bus Routes covering all major tourist zones. Safe and highly connected.</li>
-                    <li>🚕 Yellow-Black Taxis (Kaali-Peeli) available via meters directly from all stations.</li>
-                    <li>🚆 Local Train Network - The fastest way to cross the city.</li>
+                    <li><i class="fas fa-check-circle" style="color: #22c55e;"></i> Comprehensive Bus & Metro coverage.</li>
+                    <li><i class="fas fa-check-circle" style="color: #22c55e;"></i> Verified local taxi & auto services.</li>
+                    <li><i class="fas fa-check-circle" style="color: #22c55e;"></i> Major railway hubs connectivity.</li>
                 </ul>
-                <button class="btn-green"><i class="fas fa-taxi"></i> Book Local Cab Now</button>
+                <button class="btn-green"><i class="fas fa-taxi"></i> View Fare Estimates</button>
             </div>
             
             <div class="map-wrapper">
-                <div class="map-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <span><i class="fas fa-route" style="color: #3b82f6;"></i> Interactive Route Planner</span>
-                    <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem;">
-                        <i class="fas fa-cloud-sun"></i> Fetching weather...
+                <div class="map-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                    <div style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
+                        <input type="text" id="start-location" placeholder="Start (e.g., Station)..." style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
+                        <input type="text" id="end-location" placeholder="End (e.g., Hotel)..." style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
+                        <button onclick="calculateMapplsRoute()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Go</button>
+                    </div>
+                    <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">
+                        <i class="fas fa-sync-alt fa-spin"></i> Loading Weather...
                     </span>
                 </div>
                 <div id="liveMap" style="height: 500px; width: 100%;"></div>
@@ -119,100 +124,90 @@
 
     <footer class="footer">
         <h2>TerraVista</h2>
-        <p>Your ultimate guide to exploring the unseen beauties, tasting the authentic cuisines, and experiencing the rich history. Made with passion by a final year B.Tech student.</p>
+        <p>Your ultimate guide to exploring the unseen beauties and rich history of India.</p>
         <div class="social-icons">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 TerraVista Major Project. All rights reserved.</p>
+            <p>&copy; 2026 TerraVista. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    
-    <script>
-        // --- 1. DYNAMIC FILTER & SORT LOGIC ---
-        function filterAndSortItems() {
-            let container = document.getElementById("itemGrid");
-            let cards = Array.from(container.getElementsByClassName("item-card"));
-            let sortValue = document.getElementById("sortOptions").value;
-            let filterValue = document.getElementById("typeFilter").value;
-
-            cards.forEach(card => {
-                let itemType = card.getAttribute("data-type");
-                let isLodging = (itemType === "Hotel" || itemType === "Lodge");
-                let isDining = (itemType === "Restaurant" || itemType === "Cafe");
-
-                if (filterValue === "all" || (filterValue === "lodging" && isLodging) || (filterValue === "dining" && isDining)) {
-                    card.style.display = "flex"; 
-                } else {
-                    card.style.display = "none";  
-                }
-            });
-
-            cards.sort(function(a, b) {
-                let priceA = parseInt(a.getAttribute("data-price"));
-                let priceB = parseInt(b.getAttribute("data-price"));
-                let ratingA = parseFloat(a.getAttribute("data-rating"));
-                let ratingB = parseFloat(b.getAttribute("data-rating"));
-
-                if (sortValue === "lowToHigh") return priceA - priceB;
-                if (sortValue === "highToLow") return priceB - priceA;
-                if (sortValue === "rating") return ratingB - ratingA;
-                return 0; 
-            });
-
-            container.innerHTML = "";
-            cards.forEach(card => container.appendChild(card));
-        }
-
-        // --- 2. DYNAMIC CITY COORDINATES ---
+        <script>
+        // 1. DYNAMIC COORDINATES & WEATHER
         const currentCity = "{{ city.name }}";
-        let cityLat = 18.9220; // Default: Mumbai
-        let cityLng = 72.8347;
+        let cityLat = 18.9220; let cityLng = 72.8347; // Default Mumbai
 
         if (currentCity === "Hyderabad") { cityLat = 17.3850; cityLng = 78.4867; }
         else if (currentCity === "Bhubaneswar") { cityLat = 20.2961; cityLng = 85.8245; }
-        else if (currentCity === "Punjab") { cityLat = 31.6340; cityLng = 74.8723; } // Amritsar coordinates
+        else if (currentCity === "Punjab") { cityLat = 31.6340; cityLng = 74.8723; }
         else if (currentCity === "Kolkata") { cityLat = 22.5726; cityLng = 88.3639; }
 
-        // --- 3. ADVANCED ROUTING MAP ---
-        var map = L.map('liveMap').setView([cityLat, cityLng], 13); 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors | TerraVista Routing'
-        }).addTo(map);
-
-        // Add the routing machine with Search Boxes
-        L.Routing.control({
-            waypoints: [
-                L.latLng(cityLat, cityLng), // Start at city center
-                null // Leaves destination empty for user input
-            ],
-            routeWhileDragging: true,
-            geocoder: L.Control.Geocoder.nominatim(),
-            lineOptions: {
-                styles: [{color: '#3b82f6', opacity: 0.8, weight: 6}]
-            },
-            showAlternatives: true
-        }).addTo(map);
-
-        // --- 4. REAL-TIME WEATHER FETCH ---
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cityLat}&longitude=${cityLng}&current_weather=true`)
-            .then(response => response.json())
-            .then(data => {
+            .then(res => res.json()).then(data => {
                 const temp = data.current_weather.temperature;
-                const wind = data.current_weather.windspeed;
-                document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-temperature-high"></i> ${temp}°C | Wind: ${wind} km/h`;
-            })
-            .catch(error => {
-                document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-cloud"></i> Weather Unavailable`;
+                document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-thermometer-half"></i> ${temp}°C | Live`;
+            }).catch(() => { document.getElementById('weatherBadge').innerHTML = "Weather N/A"; });
+
+        // 2. MAPPLS INITIALIZATION
+        let map, directionPlugin;
+        function initMap1() {
+            map = new mappls.Map('liveMap', {
+                center: [cityLat, cityLng],
+                zoom: 12,
+                zoomControl: true,
+                location: true
             });
+        }
+
+        function calculateMapplsRoute() {
+            const start = document.getElementById("start-location").value;
+            const end = document.getElementById("end-location").value;
+            if (!start || !end) return alert("Please enter both locations.");
+
+            if (directionPlugin) mappls.remove({map: map, layer: directionPlugin});
+
+            mappls.direction({
+                map: map,
+                start: start + ", " + currentCity,
+                end: end + ", " + currentCity,
+                profile: 'driving',
+                routeColor: '#3b82f6'
+            }, function(data) { directionPlugin = data; });
+        }
+
+        // 3. FILTER & SORT LOGIC
+        function filterAndSortItems() {
+            let container = document.getElementById("itemGrid");
+            let cards = Array.from(container.getElementsByClassName("item-card"));
+            let sortVal = document.getElementById("sortOptions").value;
+            let filterVal = document.getElementById("typeFilter").value;
+
+            cards.forEach(card => {
+                let type = card.getAttribute("data-type").toLowerCase();
+                let isLodging = (type.includes("hotel") || type.includes("lodge"));
+                let isDining = (type.includes("rest") || type.includes("cafe"));
+
+                if (filterVal === "all" || (filterVal === "lodging" && isLodging) || (filterVal === "dining" && isDining)) {
+                    card.style.display = "flex";
+                } else { card.style.display = "none"; }
+            });
+
+            if (sortVal !== "default") {
+                cards.sort((a, b) => {
+                    let priceA = parseInt(a.getAttribute("data-price"));
+                    let priceB = parseInt(b.getAttribute("data-price"));
+                    let ratA = parseFloat(a.getAttribute("data-rating"));
+                    let ratB = parseFloat(b.getAttribute("data-rating"));
+                    return sortVal === "lowToHigh" ? priceA - priceB : ratB - ratA;
+                });
+                container.innerHTML = "";
+                cards.forEach(card => container.appendChild(card));
+            }
+        }
     </script>
 </body>
 </html>
