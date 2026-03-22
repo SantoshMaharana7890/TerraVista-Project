@@ -10,6 +10,10 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html, body {
+    height: 100%; /* Critical fix for the sticky footer */
+}
+
 body {
     background-color: #f8fafc; 
     color: #1e293b;
@@ -67,7 +71,7 @@ body {
 
 /* --- HOME PAGE HERO --- */
 .hero-section {
-    flex: 1;
+    flex-grow: 1; /* Explicitly forces the image to stretch and kill the white gap */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,9 +94,10 @@ body {
 .hero-subtitle {
     font-size: 1.2rem;
     color: #ffffff;
-    margin-bottom: 40px;
-    max-width: 800px;
+    margin: 0 auto 40px auto; /* Keeps the text perfectly centered */
+    max-width: 620px; /* Forces the second line to wrap perfectly */
     text-shadow: 1px 2px 6px rgba(0,0,0,0.8);
+    line-height: 1.6;
 }
 
 .search-bar-container {
@@ -396,11 +401,11 @@ body {
 
 /* --- FOOTER --- */
 .footer {
-    padding: 40px 20px 20px 20px;
+    padding: 25px 20px 15px 20px; /* Drastically reduced padding to make it thinner */
     text-align: center;
     background-color: #0f172a; 
     color: #94a3b8;
-    margin-top: auto;
+    margin-top: auto; /* Anchors strictly to the bottom */
     display: flex;
     flex-direction: column;
     align-items: center;
