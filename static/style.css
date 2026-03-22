@@ -498,14 +498,20 @@ body {
 
 @media (max-width: 768px) {
     /* 1. Un-squish the Navbar */
-    .navbar { padding: 15px 20px !important; flex-direction: column; gap: 15px; }
-    .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px !important; width: 100%; }
+    .navbar { padding: 15px 20px !important; flex-direction: column; gap: 10px; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px !important; width: 100%; }
     
-    /* 2. Scale down the Hero Text */
+    /* 2. THE ROOT FIX: Push all main content down to clear the tall mobile navbar */
+    .city-title-container { padding-top: 190px !important; }
+    .about-main { padding-top: 190px !important; }
+    .hero-section { padding-top: 190px !important; }
+
+    /* 3. Scale down the Hero Text */
     .hero-title { font-size: 2.2rem !important; margin-top: 10px; }
     .hero-subtitle { font-size: 1rem !important; padding: 0 10px; }
+    .city-title { font-size: 2.2rem; }
     
-    /* 3. FORCE the inline-styled search bar to stack */
+    /* 4. FORCE the inline-styled search bar to stack */
     .hero-section form {
         flex-direction: column !important;
         width: 100% !important;
@@ -518,11 +524,12 @@ body {
     .search-btn {
         width: 100% !important;
     }
+    .search-input-group { padding: 12px 20px; width: 100%; box-sizing: border-box; }
+    .city-dropdown { font-size: 0.95rem; }
     
-    /* 4. City Page Elements */
-    .grid-container-3 { grid-template-columns: 1fr; }
-    .section-wrapper { padding: 0 20px; }
-    .city-title { font-size: 2.2rem; }
+    /* 5. Stop horizontal scrolling on cards and UI elements */
+    .grid-container-3, .about-features { grid-template-columns: 1fr; width: 100%; box-sizing: border-box; }
+    .section-wrapper { padding: 0 15px; width: 100%; box-sizing: border-box; overflow-x: hidden; }
     .section-header-flex { flex-direction: column; align-items: flex-start; }
     .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
     .filter-sort-group select { width: 100%; }
