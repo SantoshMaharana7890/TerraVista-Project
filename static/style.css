@@ -111,14 +111,30 @@ body {
     width: 100%; max-width: 700px; margin-top: 35px; flex-wrap: wrap;
 }
 
-.search-input-wrapper { position: relative; flex: 1; min-width: 250px; }
+.hero-search-form {
+    display: flex; gap: 15px; width: 100%; max-width: 800px; margin-top: 20px; justify-content: center;
+}
+
+.search-input-group {
+    display: flex; align-items: center; background: #ffffff; padding: 12px 25px; 
+    border-radius: 50px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative;
+    min-width: 0; /* Prevents text from overflowing */
+}
 
 .city-select {
     width: 100%; height: 55px; border-radius: 30px; border: none; padding: 0 45px; 
     font-size: 1.05rem; color: #475569; appearance: none; outline: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2); cursor: pointer;
 }
 
-.location-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: #94a3b8; font-size: 1.1rem; z-index: 2; }
+.city-dropdown {
+    flex: 1; border: none; outline: none; font-size: 1.1rem; background: transparent; 
+    cursor: pointer; color: #334155; -webkit-appearance: none; -moz-appearance: none; appearance: none; 
+    padding-right: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0;
+}
+
+.dropdown-arrow { position: absolute; right: 25px; color: #94a3b8; pointer-events: none; }
+
+.location-icon { color: #94a3b8; font-size: 1.2rem; margin-right: 15px; flex-shrink: 0; }
 .dropdown-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: #94a3b8; pointer-events: none; }
 
 .search-btn {
@@ -505,48 +521,26 @@ body {
 .mappls-map-container { height: 450px; width: 100%; border-radius: 0 0 12px 12px; }
 
 /* --- THE UNIFIED ROOT RESPONSIVENESS FIX --- */
+
 @media (max-width: 768px) {
-    /* 1. Un-squish the Navbar */
-    .navbar { position: relative !important; padding: 15px 20px !important; flex-direction: column; gap: 10px; }
-    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px !important; width: 100%; }
+    /* 1. Stack the navbar */
+    .navbar { padding: 15px; flex-direction: column; gap: 15px; }
+    .nav-links { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; gap: 15px; }
     
-    /* 2. Content Padding Fix (Since navbar is relative, we don't need massive top padding) */
-    .city-title-container, .about-main, .hero-section { padding-top: 40px !important; }
+    /* 2. THE ROOT FIX: Add extra padding to clear the tall mobile navbar */
+    .city-title-container { padding-top: 190px; }
+    .hero-section { padding-top: 190px; }
+    .about-main { padding-top: 190px; }
 
-    /* 3. Scale down the Hero Text */
-    .hero-title { font-size: 2.2rem !important; margin-top: 10px; }
-    .hero-subtitle { font-size: 1rem !important; padding: 0 10px; }
-    .city-title { font-size: 2.2rem; }
-    
-    /* 4. Home Page Search Bar Fix */
-    .search-bar-container, .hero-search-form, .hero-section form { 
-        flex-direction: column !important; 
-        width: 100% !important; 
-        padding: 0 15px !important;
-        box-sizing: border-box;
-        gap: 15px !important;
-    }
-    .search-input-wrapper, .search-input-group, .city-select, .search-btn { 
-        width: 100% !important; 
-        max-width: none !important; 
-        box-sizing: border-box; 
-    }
-    
-    /* 5. City Page Map Search Fix */
-    .map-header-responsive { 
-        flex-direction: column !important; 
-        padding: 15px !important;
-    }
-    .map-input, .map-go-btn, .weather-widget-small { 
-        width: 100% !important; 
-        margin: 5px 0 !important;
-        box-sizing: border-box;
-    }
-
-    /* 6. Stop horizontal scrolling on cards and UI elements */
-    .grid-container-3, .about-features { grid-template-columns: 1fr !important; width: 100%; box-sizing: border-box; }
-    .section-wrapper { padding: 0 15px !important; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+    /* 3. Keep your existing mobile grids and text scaling */
+    .grid-container-3 { grid-template-columns: 1fr; }
     .section-header-flex { flex-direction: column; align-items: flex-start; }
     .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
-    .filter-sort-group select { width: 100%; box-sizing: border-box; }
+    .filter-sort-group select { width: 100%; }
+    .city-title { font-size: 2.2rem; }
+
+    /* 4. Ensure search bar stacks if you applied the HTML fix */
+    .hero-search-form { flex-direction: column; padding: 0 15px; width: 100%; box-sizing: border-box; }
+    .search-input-group { padding: 12px 20px; width: 100%; box-sizing: border-box; }
+    .search-btn { width: 100%; }
 }
