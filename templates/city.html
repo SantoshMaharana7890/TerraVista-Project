@@ -150,78 +150,58 @@
     </footer>
 
     <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
 
-<script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
+    <script>
+        var map, directionPlugin;
+        const currentCity = "{{ city.name }}";
+        let cityLat = 18.9220, cityLng = 72.8347;
 
-<script>
-    var map;
-    var directionPlugin;
-    var currentCity = "{{ city.name }}";
+        if (currentCity === "Hyderabad") { cityLat = 17.3850; cityLng = 78.4867; }
+        else if (currentCity === "Bhubaneswar") { cityLat = 20.2961; cityLng = 85.8245; }
+        else if (currentCity === "Punjab") { cityLat = 31.6340; cityLng = 74.8723; }
+        else if (currentCity === "Kolkata") { cityLat = 22.5726; cityLng = 88.3639; }
 
-    // 1. Initialize the Map
-    function initMap1() {
-        try {
-            map = new mappls.Map('liveMap', {
-                center: [19.0760, 72.8777], // Default to Mumbai
-                zoom: 12
-            });
-            console.log("Map Initialized Successfully");
-        } catch (e) {
-            console.error("Map failed to load:", e);
-        }
-    }
-
-    // 2. The "Go" Button Function
-    function calculateMapplsRoute() {
-        console.log("Go button clicked!"); // Check if button works at all
-        
-        const startLoc = document.getElementById("start-location").value;
-        const endLoc = document.getElementById("end-location").value;
-
-        if (!startLoc || !endLoc) {
-            alert("Please enter both locations!");
-            return;
+        function initMap1() {
+            map = new mappls.Map('liveMap', { center: [cityLat, cityLng], zoom: 12 });
+            fetchWeather();
         }
 
-        // Cleanup old routes
-        if (directionPlugin) {
-            mappls.remove({map: map, layer: directionPlugin});
+        function fetchWeather() {
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cityLat}&longitude=${cityLng}&current_weather=true`)
+                .then(res => res.json()).then(data => {
+                    const temp = data.current_weather.temperature;
+                    document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-thermometer-half"></i> ${temp}°C | Live`;
+                }).catch(() => { document.getElementById('weatherBadge').innerHTML = "Weather N/A"; });
         }
 
-        // Verify if the direction plugin is actually available
-        if (typeof mappls.direction !== 'function') {
-            alert("Mappls Direction Plugin is still loading. Please wait 2 seconds and try again.");
-            return;
-        }
+        function calculateMapplsRoute() {
+            const start = document.getElementById("start-location").value;
+            const end = document.getElementById("end-location").value;
+            if (!start || !end) return alert("Enter both locations!");
 
-        // Execute Direction
-        mappls.direction({
-            map: map,
-            start: startLoc + ", " + currentCity,
-            end: endLoc + ", " + currentCity,
-            profile: 'driving'
-        }, function(data) {
-            directionPlugin = data;
-            
-            if (data && data.routes && data.routes.length > 0) {
-                const route = data.routes[0];
-                
-                // Show the info bar
-                document.getElementById('live-route-info').style.display = "flex";
-                
-                // Convert and Display Distance/Time
-                const dist = (route.distance / 1000).toFixed(1);
-                const duration = Math.floor(route.duration / 60);
-                
-                document.getElementById('route-distance').innerText = dist + " km";
-                document.getElementById('route-time').innerText = duration + " min";
-                
-                console.log("Route calculated:", dist + "km");
-            } else {
-                alert("Could not find a route between those locations. Try being more specific!");
+            // ROOT FIX: Check if plugin is ready. If not, retry every 500ms instead of showing alert.
+            if (typeof mappls.direction !== 'function') {
+                console.log("Plugin not ready, retrying...");
+                setTimeout(calculateMapplsRoute, 500);
+                return;
             }
-        });
-    }
-</script>
+
+            if (directionPlugin) { try { mappls.remove({map: map, layer: directionPlugin}); } catch(e) {} }
+
+            mappls.direction({
+                map: map, start: start + ", " + currentCity, end: end + ", " + currentCity, profile: 'driving'
+            }, function(data) {
+                directionPlugin = data;
+                if (data && data.routes && data.routes.length > 0) {
+                    const r = data.routes[0];
+                    document.getElementById('route-distance').innerText = (r.distance / 1000).toFixed(1) + " km";
+                    const mins = Math.floor(r.duration / 60);
+                    document.getElementById('route-time').innerText = mins >= 60 ? Math.floor(mins/60) + "h " + (mins%60) + "m" : mins + " min";
+                    document.getElementById('live-route-info').style.display = "flex";
+                }
+            });
+        }
+    </script>
 </body>
-</html>      
+</html>
