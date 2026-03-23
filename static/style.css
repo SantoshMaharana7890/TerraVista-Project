@@ -496,77 +496,57 @@ body {
     .section-wrapper { padding: 0 30px; }
 }
 
+/* --- HELPER CLASSES FOR MAP UI (Moved outside so they apply globally) --- */
+.map-header-responsive { display: flex; gap: 10px; padding: 15px; background: white; border-bottom: 1px solid #ddd; align-items: center; }
+.map-input { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 16px; }
+.map-go-btn { background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.weather-widget-small { background: #eff6ff; color: #1e3a8a; padding: 10px 15px; border-radius: 8px; font-weight: bold; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 8px; justify-content: center; }
+.route-info-bar { display: none; background: #eff6ff; border-bottom: 1px solid #bfdbfe; padding: 15px; justify-content: space-around; flex-wrap: wrap; }
+.mappls-map-container { height: 450px; width: 100%; border-radius: 0 0 12px 12px; }
+
+/* --- THE UNIFIED ROOT RESPONSIVENESS FIX --- */
 @media (max-width: 768px) {
     /* 1. Un-squish the Navbar */
-    .navbar { padding: 15px 20px !important; flex-direction: column; gap: 10px; }
+    .navbar { position: relative !important; padding: 15px 20px !important; flex-direction: column; gap: 10px; }
     .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px !important; width: 100%; }
     
-    /* 2. THE ROOT FIX: Push all main content down to clear the tall mobile navbar */
-    .city-title-container { padding-top: 190px !important; }
-    .about-main { padding-top: 190px !important; }
-    .hero-section { padding-top: 190px !important; }
+    /* 2. Content Padding Fix (Since navbar is relative, we don't need massive top padding) */
+    .city-title-container, .about-main, .hero-section { padding-top: 40px !important; }
 
     /* 3. Scale down the Hero Text */
     .hero-title { font-size: 2.2rem !important; margin-top: 10px; }
     .hero-subtitle { font-size: 1rem !important; padding: 0 10px; }
     .city-title { font-size: 2.2rem; }
     
-    /* 4. FORCE the inline-styled search bar to stack */
-    .hero-section form {
-        flex-direction: column !important;
-        width: 100% !important;
+    /* 4. Home Page Search Bar Fix */
+    .search-bar-container, .hero-search-form, .hero-section form { 
+        flex-direction: column !important; 
+        width: 100% !important; 
         padding: 0 15px !important;
+        box-sizing: border-box;
+        gap: 15px !important;
     }
-    .hero-section form > div {
-        width: 100% !important;
-        flex: none !important; /* Overrides the flex: 1 inline style */
+    .search-input-wrapper, .search-input-group, .city-select, .search-btn { 
+        width: 100% !important; 
+        max-width: none !important; 
+        box-sizing: border-box; 
     }
-    .search-btn {
-        width: 100% !important;
-    }
-    .search-input-group { padding: 12px 20px; width: 100%; box-sizing: border-box; }
-    .city-dropdown { font-size: 0.95rem; }
     
-    /* 5. Stop horizontal scrolling on cards and UI elements */
-    .grid-container-3, .about-features { grid-template-columns: 1fr; width: 100%; box-sizing: border-box; }
-    .section-wrapper { padding: 0 15px; width: 100%; box-sizing: border-box; overflow-x: hidden; }
-    .section-header-flex { flex-direction: column; align-items: flex-start; }
-    .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
-    .filter-sort-group select { width: 100%; }
-}
-
-/* --- ROOT RESPONSIVENESS FIX --- */
-@media (max-width: 768px) {
-    /* Home Search Bar Fix */
-    .hero-search-form { flex-direction: column; width: 90% !important; margin: 20px auto; }
-    .search-input-group { width: 100% !important; box-sizing: border-box; }
-    .search-btn { width: 100% !important; }
-
-    /* City Page Map Search Fix */
+    /* 5. City Page Map Search Fix */
     .map-header-responsive { 
         flex-direction: column !important; 
-        padding: 10px !important;
-        background: #fff;
+        padding: 15px !important;
     }
-    .map-input { width: 100% !important; box-sizing: border-box; margin-bottom: 8px; }
-    .map-go-btn { width: 100% !important; }
-    .weather-widget-small { width: 100%; justify-content: center; margin-bottom: 10px; }
+    .map-input, .map-go-btn, .weather-widget-small { 
+        width: 100% !important; 
+        margin: 5px 0 !important;
+        box-sizing: border-box;
+    }
 
-    /* Fix flickering/jumping grid */
-    .grid-container-3 { 
-        grid-template-columns: 1fr !important; 
-        min-height: 400px; /* Stabilizes the page during load */
-    }
-    
-    .navbar { position: relative !important; padding: 15px; flex-direction: column; }
-    .nav-links { flex-wrap: wrap; justify-content: center; width: 100%; gap: 10px; }
-    .city-title-container { padding-top: 30px !important; }
+    /* 6. Stop horizontal scrolling on cards and UI elements */
+    .grid-container-3, .about-features { grid-template-columns: 1fr !important; width: 100%; box-sizing: border-box; }
+    .section-wrapper { padding: 0 15px !important; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+    .section-header-flex { flex-direction: column; align-items: flex-start; }
+    .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
+    .filter-sort-group select { width: 100%; box-sizing: border-box; }
 }
-
-/* Helper classes for the map UI */
-.map-header-responsive { display: flex; gap: 10px; padding: 15px; background: white; border-bottom: 1px solid #ddd; }
-.map-input { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
-.map-go-btn { background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-.weather-widget-small { background: #eff6ff; color: #1e3a8a; padding: 10px 15px; border-radius: 8px; font-weight: bold; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 8px; }
-.route-info-bar { display: none; background: #eff6ff; border-bottom: 1px solid #bfdbfe; padding: 15px; justify-content: space-around; flex-wrap: wrap; }
-.mappls-map-container { height: 450px; width: 100%; }
