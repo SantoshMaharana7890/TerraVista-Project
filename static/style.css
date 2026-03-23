@@ -534,3 +534,39 @@ body {
     .filter-sort-group { flex-direction: column; width: 100%; margin-top: 15px; }
     .filter-sort-group select { width: 100%; }
 }
+
+/* --- ROOT RESPONSIVENESS FIX --- */
+@media (max-width: 768px) {
+    /* Home Search Bar Fix */
+    .hero-search-form { flex-direction: column; width: 90% !important; margin: 20px auto; }
+    .search-input-group { width: 100% !important; box-sizing: border-box; }
+    .search-btn { width: 100% !important; }
+
+    /* City Page Map Search Fix */
+    .map-header-responsive { 
+        flex-direction: column !important; 
+        padding: 10px !important;
+        background: #fff;
+    }
+    .map-input { width: 100% !important; box-sizing: border-box; margin-bottom: 8px; }
+    .map-go-btn { width: 100% !important; }
+    .weather-widget-small { width: 100%; justify-content: center; margin-bottom: 10px; }
+
+    /* Fix flickering/jumping grid */
+    .grid-container-3 { 
+        grid-template-columns: 1fr !important; 
+        min-height: 400px; /* Stabilizes the page during load */
+    }
+    
+    .navbar { position: relative !important; padding: 15px; flex-direction: column; }
+    .nav-links { flex-wrap: wrap; justify-content: center; width: 100%; gap: 10px; }
+    .city-title-container { padding-top: 30px !important; }
+}
+
+/* Helper classes for the map UI */
+.map-header-responsive { display: flex; gap: 10px; padding: 15px; background: white; border-bottom: 1px solid #ddd; }
+.map-input { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
+.map-go-btn { background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.weather-widget-small { background: #eff6ff; color: #1e3a8a; padding: 10px 15px; border-radius: 8px; font-weight: bold; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 8px; }
+.route-info-bar { display: none; background: #eff6ff; border-bottom: 1px solid #bfdbfe; padding: 15px; justify-content: space-around; flex-wrap: wrap; }
+.mappls-map-container { height: 450px; width: 100%; }
