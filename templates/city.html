@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
-    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0"></script>
+    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
+
 </head>
     
 <body class="city-page-bg">
@@ -179,50 +180,58 @@
         }
 
         function calculateMapplsRoute() {
-            const start = document.getElementById("start-location").value;
-            const end = document.getElementById("end-location").value;
-            
-            if (!start || !end) return alert("Please enter both locations.");
+            const startInput = document.getElementById("start-location").value;
+            const endInput = document.getElementById("end-location").value;
 
-            // Remove old route if doing a new search
-            if (directionPlugin) mappls.remove({map: map, layer: directionPlugin});
+            if (!startInput || !endInput) {
+                alert("Please enter both a starting point and a destination.");
+                return;
+            }
 
-            // Call the Mappls API
+            // Append the city to make the search hyper-local
+            const startQuery = startInput + ", " + currentCity;
+            const endQuery = endInput + ", " + currentCity;
+
+            // Safely remove the old blue line if calculating a new route
+            if (directionPlugin) {
+                try { mappls.remove({map: map, layer: directionPlugin}); } catch(e) {}
+            }
+
+            // Call the Mappls Direction API
             mappls.direction({
                 map: map,
-                start: start + ", " + currentCity,
-                end: end + ", " + currentCity,
+                start: startQuery,
+                end: endQuery,
                 profile: 'driving',
-                routeColor: '#3b82f6',
-                strokeWidth: 5
-            }, function(data) { 
-                directionPlugin = data; 
+                strokeWidth: 5,
+                routeColor: '#3b82f6'
+            }, function(data) {
+                directionPlugin = data;
                 
-                // --- THE REAL-TIME DATA MAGIC ---
-                try {
-                    // Mappls returns data in meters and seconds
-                    if (data && data.routes && data.routes.length > 0) {
-                        const routeData = data.routes[0];
-                        
-                        // 1. Calculate Distance (Convert meters to KM)
-                        const distanceKm = (routeData.distance / 1000).toFixed(1);
-                        
-                        // 2. Calculate ETA (Convert seconds to Hours & Mins)
-                        const totalMins = Math.floor(routeData.duration / 60);
-                        const hours = Math.floor(totalMins / 60);
-                        const mins = totalMins % 60;
-                        
-                        let timeString = "";
-                        if (hours > 0) { timeString += hours + " hr "; }
-                        timeString += mins + " min";
+                // IF Mappls successfully finds a route:
+                if (data && data.routes && data.routes.length > 0) {
+                    const routeData = data.routes[0];
+                    
+                    // Convert meters to Kilometers
+                    const distanceKm = (routeData.distance / 1000).toFixed(1);
+                    
+                    // Convert seconds to Hours and Minutes
+                    const totalMins = Math.floor(routeData.duration / 60);
+                    const hours = Math.floor(totalMins / 60);
+                    const mins = totalMins % 60;
+                    
+                    let timeString = "";
+                    if (hours > 0) timeString += hours + " hr ";
+                    timeString += mins + " min";
 
-                        // 3. Inject into UI and show the dashboard
-                        document.getElementById('route-distance').innerText = distanceKm + " km";
-                        document.getElementById('route-time').innerText = timeString;
-                        document.getElementById('live-route-info').style.display = "flex";
-                    }
-                } catch (error) {
-                    console.error("Could not parse real-time route data", error);
+                    // Inject the live data into the dashboard and make it visible
+                    document.getElementById('route-distance').innerText = distanceKm + " km";
+                    document.getElementById('route-time').innerText = timeString;
+                    document.getElementById('live-route-info').style.display = "flex";
+                } 
+                // IF Mappls cannot find a valid route:
+                else {
+                    alert("Mappls couldn't find a direct driving route. Try being more specific (e.g., 'CST Station' instead of 'Station').");
                 }
             });
         }
