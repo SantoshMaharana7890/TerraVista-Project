@@ -107,16 +107,31 @@
             </div>
             
             <div class="map-wrapper">
-                <div class="map-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div class="map-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; background: white; padding: 15px;">
                     <div style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
-                        <input type="text" id="start-location" placeholder="Start (e.g., Station)..." style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
-                        <input type="text" id="end-location" placeholder="End (e.g., Hotel)..." style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
-                        <button onclick="calculateMapplsRoute()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Go</button>
+                        <input type="text" id="start-location" placeholder="Start (e.g., Station)..." style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 0.95rem;">
+                        <input type="text" id="end-location" placeholder="End (e.g., Hotel)..." style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 0.95rem;">
+                        <button onclick="calculateMapplsRoute()" style="background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;">Go</button>
                     </div>
-                    <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">
-                        <i class="fas fa-sync-alt fa-spin"></i> Loading Weather...
-                    </span>
                 </div>
+
+                <div id="live-route-info" style="display: none; background: #eff6ff; border-bottom: 1px solid #bfdbfe; padding: 15px 20px; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-car-side" style="color: #2563eb; font-size: 1.5rem;"></i>
+                        <div>
+                            <p style="margin: 0; font-size: 0.8rem; color: #64748b; font-weight: bold; text-transform: uppercase;">Est. Travel Time</p>
+                            <h4 id="route-time" style="margin: 0; color: #1e3a8a; font-size: 1.2rem;">--</h4>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-road" style="color: #2563eb; font-size: 1.5rem;"></i>
+                        <div>
+                            <p style="margin: 0; font-size: 0.8rem; color: #64748b; font-weight: bold; text-transform: uppercase;">Total Distance</p>
+                            <h4 id="route-distance" style="margin: 0; color: #1e3a8a; font-size: 1.2rem;">--</h4>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="liveMap" style="height: 500px; width: 100%;"></div>
             </div>
         </div>
@@ -166,17 +181,50 @@
         function calculateMapplsRoute() {
             const start = document.getElementById("start-location").value;
             const end = document.getElementById("end-location").value;
+            
             if (!start || !end) return alert("Please enter both locations.");
 
+            // Remove old route if doing a new search
             if (directionPlugin) mappls.remove({map: map, layer: directionPlugin});
 
+            // Call the Mappls API
             mappls.direction({
                 map: map,
                 start: start + ", " + currentCity,
                 end: end + ", " + currentCity,
                 profile: 'driving',
-                routeColor: '#3b82f6'
-            }, function(data) { directionPlugin = data; });
+                routeColor: '#3b82f6',
+                strokeWidth: 5
+            }, function(data) { 
+                directionPlugin = data; 
+                
+                // --- THE REAL-TIME DATA MAGIC ---
+                try {
+                    // Mappls returns data in meters and seconds
+                    if (data && data.routes && data.routes.length > 0) {
+                        const routeData = data.routes[0];
+                        
+                        // 1. Calculate Distance (Convert meters to KM)
+                        const distanceKm = (routeData.distance / 1000).toFixed(1);
+                        
+                        // 2. Calculate ETA (Convert seconds to Hours & Mins)
+                        const totalMins = Math.floor(routeData.duration / 60);
+                        const hours = Math.floor(totalMins / 60);
+                        const mins = totalMins % 60;
+                        
+                        let timeString = "";
+                        if (hours > 0) { timeString += hours + " hr "; }
+                        timeString += mins + " min";
+
+                        // 3. Inject into UI and show the dashboard
+                        document.getElementById('route-distance').innerText = distanceKm + " km";
+                        document.getElementById('route-time').innerText = timeString;
+                        document.getElementById('live-route-info').style.display = "flex";
+                    }
+                } catch (error) {
+                    console.error("Could not parse real-time route data", error);
+                }
+            });
         }
 
         // 3. FILTER & SORT LOGIC
