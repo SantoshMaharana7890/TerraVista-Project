@@ -1,6 +1,6 @@
 /* ==========================================================================
    TERRAVISTA MASTER STYLESHEET
-   Cleaned & Humanized for Performance
+   Includes Global Styles, Dark Homepage, and Light City Page
    ========================================================================== */
 
 * {
@@ -10,11 +10,7 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-html, body {
-    height: 100%; 
-    overflow-x: hidden;
-}
-
+html, body { height: 100%; overflow-x: hidden; }
 body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
 .home-bg { display: flex; flex-direction: column; min-height: 100vh; }
 .city-page-bg { background-color: #f8fafc; }
@@ -31,7 +27,7 @@ body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
     display: flex; align-items: center; gap: 8px; color: #f8fafc !important;
 }
 .nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links a { text-decoration: none; transition: color 0.3s; font-weight: 500; }
+.nav-links a { text-decoration: none; transition: color 0.3s; }
 .nav-links a:hover {
     color: #3b82f6 !important;
     text-shadow: 0 0 10px rgba(96, 165, 250, 0.8), 0 0 20px rgba(96, 165, 250, 0.5); 
@@ -47,17 +43,21 @@ body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
 .hero-title { font-size: 3.5rem; color: #ffffff; margin-bottom: 15px; text-shadow: 2px 4px 10px rgba(0,0,0,0.7); }
 .hero-subtitle {
     font-size: 1.2rem; color: #ffffff; margin: 0 auto 40px auto; 
-    max-width: 620px; text-shadow: 1px 2px 6px rgba(0,0,0,0.8); line-height: 1.6; font-weight: 600;
+    max-width: 620px; text-shadow: 1px 2px 6px rgba(0,0,0,0.8); line-height: 1.6;
 }
+.search-bar-container { display: flex; gap: 15px; align-items: center; justify-content: center; width: 100%; max-width: 700px; margin-top: 35px; flex-wrap: wrap; }
 .hero-search-form { display: flex; gap: 15px; width: 100%; max-width: 800px; margin-top: 20px; justify-content: center; }
 .search-input-group {
     display: flex; align-items: center; background: #ffffff; padding: 12px 25px; 
-    border-radius: 50px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative;
+    border-radius: 50px; flex: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3); position: relative; min-width: 0;
 }
+.city-select { width: 100%; height: 55px; border-radius: 30px; border: none; padding: 0 45px; font-size: 1.05rem; color: #475569; appearance: none; outline: none; box-shadow: 0 10px 25px rgba(0,0,0,0.2); cursor: pointer; }
+
+/* Fixed Dropdown text overflow */
 .city-dropdown {
     flex: 1; border: none; outline: none; font-size: 1.1rem; background: transparent; 
     cursor: pointer; color: #334155; -webkit-appearance: none; appearance: none; 
-    padding-right: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    padding-right: 30px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
 }
 .dropdown-arrow { position: absolute; right: 25px; color: #94a3b8; pointer-events: none; }
 .location-icon { color: #94a3b8; font-size: 1.2rem; margin-right: 15px; flex-shrink: 0; }
@@ -85,16 +85,19 @@ body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
 .section-heading { font-size: 2rem; color: #0f172a; border-bottom: 3px solid #1e3a8a; display: inline-block; padding-bottom: 8px; margin-bottom: 30px; }
 .section-header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
 .filter-sort-group { display: flex; gap: 15px; }
-.filter-sort-group select { padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: white; font-size: 14px; font-weight: 600; color: #334155; outline: none; }
+.filter-sort-group select { padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: white; font-size: 14px; font-weight: 600; color: #334155; cursor: pointer; outline: none; }
 
-.grid-container-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: stretch; }
+/* Anti-flicker: Reserving space for the grid before images load */
+.grid-container-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; align-items: stretch; min-height: 400px; }
 .ui-card { display: flex; flex-direction: column; background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow: hidden; height: 100%; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .ui-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15); border-color: #3b82f6; }
-.card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; object-position: center; border-bottom: 1px solid #e2e8f0; background-color: #f1f5f9; display: block; }
+
+/* Anti-flicker: Hardcoded image height */
+.card-img { width: 100%; height: 250px; object-fit: cover; object-position: center; border-bottom: 1px solid #e2e8f0; background-color: #f1f5f9; display: block; }
 .card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
 .category-text { color: #3b82f6; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
 .title-rating-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.card-title { font-size: 1.3rem; color: #0f172a; margin-bottom: 0; }
+.card-title { font-size: 1.3rem; color: #0f172a; margin-bottom: 10px; }
 .card-desc { color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; } 
 .rating-badge { background: #3b82f6; color: white; padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 0.9rem; }
 .budget-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 800; margin-bottom: 10px; width: fit-content; }
@@ -112,10 +115,10 @@ body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
 .map-wrapper { flex: 1; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; background: white;}
 .map-header { padding: 15px; border-bottom: 1px solid #e2e8f0; }
 
-/* Safely extracted Map UI classes so mobile doesn't crash */
-.map-input-group { display: flex; gap: 10px; width: 100%; }
+/* Desktop Map Inputs */
+.map-input-group { display: flex; gap: 10px; width: 100%; align-items: center; }
 .map-input { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 1rem; }
-.map-go-btn { background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background-color 0.3s;}
+.map-go-btn { background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;}
 .map-go-btn:hover { background: #2563eb; }
 
 /* --- ABOUT & FOOTER --- */
@@ -144,24 +147,25 @@ body { background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
 }
 
 @media (max-width: 768px) {
-    /* Stop Navbar overlap */
+    /* 1. Stop Navbar overlap */
     .navbar { position: relative !important; padding: 15px !important; flex-direction: column; gap: 10px; }
     .nav-links { flex-wrap: wrap !important; justify-content: center !important; gap: 10px !important; width: 100%; }
 
-    /* Fix Hero Typography */
+    /* 2. Fix Hero Typography */
     .hero-section, .city-title-container, .about-main { padding-top: 40px !important; height: auto !important; }
     .hero-title { font-size: 2.2rem !important; line-height: 1.2 !important; }
     .hero-subtitle { font-size: 1rem !important; padding: 0 15px !important; }
     
-    /* Fix Home Search Bar */
+    /* 3. Fix Home Search Bar */
     .hero-search-form { flex-direction: column !important; width: 100% !important; padding: 0 15px !important; box-sizing: border-box !important; }
     .search-input-group, .search-btn { width: 100% !important; border-radius: 15px !important; }
 
-    /* Fix Map Input Layout */
-    .map-input-group { flex-direction: column !important; width: 100% !important; }
-    .map-input, .map-go-btn { width: 100% !important; margin-bottom: 10px !important; }
+    /* 4. Fix the Squished Map Inputs */
+    .map-input-group { display: block !important; width: 100% !important; }
+    .map-input { display: block !important; width: 100% !important; box-sizing: border-box !important; margin-bottom: 10px !important; }
+    .map-go-btn { display: block !important; width: 100% !important; box-sizing: border-box !important; }
 
-    /* Stack Grids */
+    /* 5. Stack Grids */
     .grid-container-3, .about-features { grid-template-columns: 1fr !important; padding: 0 15px !important; width: 100% !important; box-sizing: border-box !important; }
     .section-wrapper { padding: 0 15px !important; width: 100% !important; box-sizing: border-box !important; overflow-x: hidden; }
     .section-header-flex, .filter-sort-group { flex-direction: column !important; width: 100% !important; align-items: flex-start !important; }
