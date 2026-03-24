@@ -89,7 +89,7 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 .about-main { flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 20px 60px 20px; }
 .about-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 60px 0; }
 .feature-card { background: #ffffff; overflow: hidden !important; padding: 40px 30px; border-radius: 16px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-top: 5px solid #3b82f6; transition: 0.3s; }
-.feature-card:hover { transform: translateY(-10px); }
+.feature-card:hover { box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15); transform: translateY(-10px); }
 
 /* --- ABOUT PAGE HIGHLIGHT BOXES --- */
 .navy-info-box {
