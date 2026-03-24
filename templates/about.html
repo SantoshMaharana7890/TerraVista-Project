@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - TerraVista</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=32.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=33.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="about-bg">
+<body class="home-bg">
 
     <nav class="navbar">
-        <div class="logo" style="display: flex; align-items: center; gap: 8px;">
-            <i class="fas fa-globe-americas" style="color: #3b82f6; font-size: 28px;"></i>
-            <span style="font-weight: 800; font-size: 1.6rem; letter-spacing: -0.5px; color: #f8fafc;">Terra<span style="color: #3b82f6;">Vista</span></span>
-        </div>
+        <a href="/" class="logo">
+            <i class="fas fa-globe-americas" style="color: #3b82f6;"></i>
+            <span>Terra<span style="color: #3b82f6;">Vista</span></span>
+        </a>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
-            <li><a href="/#places">Destinations</a></li>
-            <li><a href="/#accommodations">Hotels & Dining</a></li>
-            <li><a href="/#transport">Transport</a></li>
             <li><a href="/about">About Us</a></li>
         </ul>
     </nav>
 
-    <div class="about-main">
-        <div class="about-header">
-            <h1 class="city-title" style="text-align: center; margin-bottom: 15px;">Discover TerraVista</h1>
-            <p class="city-description" style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.15rem;">
+    <main class="about-main" style="margin-top: 20px;">
+        
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h1 style="font-size: 3rem; color: #0f172a; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px;">
+                Discover <br> TerraVista
+            </h1>
+            <p style="font-size: 1.1rem; color: #475569; max-width: 800px; margin: 0 auto; line-height: 1.8;">
                 TerraVista is a unified tourism ecosystem designed to be your ultimate guide for exploring India's top cities. We bring together hidden nature spots, luxury and budget accommodations, and local transit routes into one seamless platform.
             </p>
         </div>
@@ -34,30 +34,31 @@
         <div class="about-features">
             <div class="feature-card">
                 <i class="fas fa-map-marked-alt feature-icon"></i>
-                <h3>Curated Destinations</h3>
-                <p>Explore the true essence of each city through historical monuments, cultural hubs, and breathtaking nature spots.</p>
+                <h3 style="font-size: 1.4rem; color: #0f172a; margin-bottom: 15px;">Curated Destinations</h3>
+                <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;">Explore the true essence of each city through historical monuments, cultural hubs, and breathtaking nature spots.</p>
             </div>
-            
             <div class="feature-card">
                 <i class="fas fa-hotel feature-icon"></i>
-                <h3>Smart Accommodations</h3>
-                <p>Filter through premium hotels, budget lodges, and authentic local eateries to find exactly what fits your journey.</p>
+                <h3 style="font-size: 1.4rem; color: #0f172a; margin-bottom: 15px;">Smart Accommodations</h3>
+                <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;">Filter through premium hotels, budget lodges, and authentic local eateries to find exactly what fits your journey.</p>
             </div>
-            
             <div class="feature-card">
                 <i class="fas fa-route feature-icon"></i>
-                <h3>Live Transit Guides</h3>
-                <p>Navigate like a local with safe transit routes, integrated maps, and direct access to local transportation.</p>
+                <h3 style="font-size: 1.4rem; color: #0f172a; margin-bottom: 15px;">Live Transit Guides</h3>
+                <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;">Navigate like a local with safe transit routes, integrated maps, and direct access to local transportation.</p>
             </div>
         </div>
 
         <div class="developer-section">
-            <h2 style="margin-bottom: 15px; color: #ffffff;">Behind the Project</h2>
+            <h2 style="font-size: 2rem; margin-bottom: 20px; border-bottom: 3px solid #3b82f6; display: inline-block; padding-bottom: 8px;">
+                Behind the Project
+            </h2>
             <p>
-                "TerraVista was built from the ground up by the final year B.Tech Computer Science and Engineering students. The goal of this major project was to eliminate the hassle of juggling multiple apps by providing a seamless, full-stack tourism portal powered by modern web technologies, dynamic API routing, and a robust TiDB cloud database."
+                TerraVista was built from the ground up by final year B.Tech Computer Science and Engineering students. The goal of this major project was to eliminate the hassle of juggling multiple apps by providing a seamless, full-stack tourism portal powered by modern web technologies, dynamic API routing, and a robust cloud database.
             </p>
         </div>
-    </div>
+
+    </main>
 
     <footer class="footer">
         <h2 style="margin: 0 0 15px 0; font-size: 1.8rem; letter-spacing: -0.5px;">
