@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ city.name }} - TerraVista</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=32.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=31.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
-    
-    <script id="mappls-direction-plugin" src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
+
+    <script
+        src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
+    <script id="mappls-direction-plugin"
+        src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
 </head>
+
 <body class="city-page-bg">
 
     <nav class="navbar">
@@ -28,13 +31,15 @@
 
     <div class="city-title-container">
         <h1 class="city-title">{{ city.name }}</h1>
-        <div class="city-tags">
-            <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 8px 18px; border-radius: 30px; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
+        <div class="city-tags" id="dynamicTagContainer">
+            <span id="weatherBadge"
+                style="background: #e0e7ff; color: #3730a3; padding: 8px 18px; border-radius: 30px; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
                 <i class="fas fa-sync-alt fa-spin"></i> Loading...
             </span>
-            <span id="dynamic-sport" class="tag tag-blue"><i class="fas fa-running"></i> Sports</span>
-            <span id="dynamic-cuisine" class="tag tag-orange"><i class="fas fa-utensils"></i> Cuisine</span>
-            <span id="dynamic-art" class="tag tag-purple"><i class="fas fa-paint-brush"></i> Arts & Crafts</span>
+
+            <span id="tag-sport" class="tag tag-blue"><i class="fas fa-running"></i> Sports</span>
+            <span id="tag-cuisine" class="tag tag-orange"><i class="fas fa-utensils"></i> Cuisine</span>
+            <span id="tag-art" class="tag tag-purple"><i class="fas fa-palette"></i> Arts & Crafts</span>
         </div>
         <p class="city-description">{{ city.description }}</p>
     </div>
@@ -44,13 +49,16 @@
         <div class="grid-container-3">
             {% for place in places %}
             <div class="ui-card">
-                <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=Image+Not+Found';">
+                <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}"
+                    class="card-img"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=Image+Not+Found';">
                 <div class="card-content">
-                    <span class="category-text">{{ place.category | default('Heritage Site') }}</span>
+                    <span class="category-text">{{ place.category }}</span>
                     <h3 class="card-title">{{ place.name }}</h3>
                     <p class="card-desc">{{ place.description }}</p>
-                    
+
                     <a href="/place/{{ place.name }}" class="view-details-btn">View Details</a>
+                
                 </div>
             </div>
             {% endfor %}
@@ -65,24 +73,27 @@
                     <option value="all">All Types</option>
                     <option value="lodging">Hotels</option>
                     <option value="dining">Dining</option>
-                </select>
-                <select id="sortOptions" onchange="filterAndSortItems()">
-                    <option value="default">Sort By</option>
-                    <option value="lowToHigh">Price</option>
-                    <option value="rating">Rating</option>
-                </select>
+                    <select id="sortOptions" onchange="filterAndSortItems()">
+                        <option value="default">Sort By</option>
+                        <option value="lowToHigh">Price</option>
+                        <option value="rating">Rating</option>
+                    </select>
             </div>
         </div>
         <div class="grid-container-3" id="itemGrid">
             {% for item in items %}
-            <div class="ui-card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}" data-type="{{ item.type }}">
-                <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}" class="card-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=Image+Not+Found';">
+            <div class="ui-card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}"
+                data-type="{{ item.type }}">
+                <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}"
+                    class="card-img"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=Image+Not+Found';">
                 <div class="card-content">
                     <div class="title-rating-row">
                         <h3 class="card-title">{{ item.name }}</h3>
                         <span class="rating-badge"><i class="fas fa-star"></i> {{ item.rating }}</span>
                     </div>
-                    <span class="budget-badge {{ item.budget_category | lower | replace(' ', '-') }}">{{ item.budget_category }}</span>
+                    <span class="budget-badge {{ item.budget_category | lower | replace(' ', '-') }}">{{
+                        item.budget_category }}</span>
                     <p class="price">₹{{ item.price }}</p>
                     <button class="book-btn-light">Book Now</button>
                 </div>
@@ -128,64 +139,54 @@
     </footer>
 
     <script>
-        const currentCity = "{{ city.name }}";
-
-        // 1. UNIFIED DYNAMIC CITY DATA
-        const cityData = {
-            "Mumbai": { sport: "Cricket", cuisine: "Vada Pav", art: "Warli Art", lat: 18.9220, lng: 72.8347 },
+        // 1. DATA DICTIONARY (Expertly curated for your cities)
+        const cityTraits = {
+            "Mumbai": { sport: "Cricket", cuisine: "Vada Pav", art: "Bollywood", lat: 18.9220, lng: 72.8347 },
             "Hyderabad": { sport: "Badminton", cuisine: "Biryani", art: "Pearl Craft", lat: 17.3850, lng: 78.4867 },
             "Bhubaneswar": { sport: "Hockey", cuisine: "Pahala Rasgulla", art: "Pattachitra", lat: 20.2961, lng: 85.8245 },
             "Punjab": { sport: "Kabaddi", cuisine: "Makki Di Roti", art: "Phulkari", lat: 31.6340, lng: 74.8723 },
             "Kolkata": { sport: "Football", cuisine: "Rosogolla", art: "Terracotta", lat: 22.5726, lng: 88.3639 }
         };
 
-        // Fallback to Mumbai if there's a typo in the database
-        const city = cityData[currentCity] || cityData["Mumbai"];
+        const cityName = "{{ city.name }}";
+        const data = cityTraits[cityName] || cityTraits["Mumbai"];
 
-        // 2. INSTANTLY INJECT CITY TAGS (Wrapped in try/catch so it can never crash the app)
-        try {
-            document.getElementById("dynamic-sport").innerHTML = `<i class="fas fa-running"></i> ${city.sport}`;
-            document.getElementById("dynamic-cuisine").innerHTML = `<i class="fas fa-utensils"></i> ${city.cuisine}`;
-            document.getElementById("dynamic-art").innerHTML = `<i class="fas fa-paint-brush"></i> ${city.art}`;
-        } catch(error) {
-            console.log("Static tags fallback active.");
+        // 2. THE INSTANT INJECTOR (Fixed to run immediately)
+        function injectCityData() {
+            document.getElementById("tag-sport").innerHTML = `<i class="fas fa-running"></i> ${data.sport}`;
+            document.getElementById("tag-cuisine").innerHTML = `<i class="fas fa-utensils"></i> ${data.cuisine}`;
+            document.getElementById("tag-art").innerHTML = `<i class="fas fa-palette"></i> ${data.art}`;
+
+            // Fetch Live Weather
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=${data.lat}&longitude=${data.lng}&current_weather=true`)
+                .then(res => res.json()).then(wData => {
+                    const temp = Math.round(wData.current_weather.temperature);
+                    document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-thermometer-half"></i> ${temp}°C | Live`;
+                }).catch(() => { document.getElementById('weatherBadge').innerHTML = "N/A"; });
         }
 
-        // 3. FETCH WEATHER SAFELY
-        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lng}&current_weather=true`)
-            .then(res => res.json())
-            .then(data => {
-                const temp = Math.round(data.current_weather.temperature);
-                document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-thermometer-half"></i> ${temp}°C | Live`;
-            }).catch(() => { 
-                document.getElementById('weatherBadge').innerHTML = "Weather N/A"; 
-            });
+        // Run injection as soon as script is read
+        injectCityData();
 
-        // 4. MAP INITIALIZATION & ROUTING
-        let map, directionPlugin;
-        let pluginReady = false;
-
-        // The ? safely checks if the ID exists without crashing
-        document.getElementById('mappls-direction-plugin')?.addEventListener('load', function() {
-            pluginReady = true;
-        });
-
-        // This is automatically called by the Mappls script tag in the header
+        // 3. MAP INITIALIZATION
+        var map, directionPlugin;
         function initMap1() {
-            map = new mappls.Map('liveMap', { 
-                center: [city.lat, city.lng], 
+            map = new mappls.Map('liveMap', {
+                center: [data.lat, data.lng],
                 zoom: 12,
                 zoomControl: true,
-                location: true 
+                location: true
             });
         }
 
+        // 3. ROUTE LOGIC: Professional Fix for the "Finalizing" problem
         function calculateMapplsRoute() {
             const btn = document.getElementById('go-btn');
-            
+
+            // If the plugin isn't ready yet, show a loader on the button instead of a popup
             if (!pluginReady || typeof mappls.direction === 'undefined') {
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wait...';
-                setTimeout(calculateMapplsRoute, 800); 
+                setTimeout(calculateMapplsRoute, 1000); // Check again in 1 second
                 return;
             }
 
@@ -193,19 +194,19 @@
             const start = document.getElementById("start-location").value;
             const end = document.getElementById("end-location").value;
 
-            if (!start || !end) return alert("Please fill in both locations.");
+            if (!start || !end) return alert("Please fill both locations.");
 
-            if (directionPlugin) mappls.remove({map: map, layer: directionPlugin});
+            if (directionPlugin) mappls.remove({ map: map, layer: directionPlugin });
 
             mappls.direction({
                 map: map,
                 start: start + ", " + currentCity,
                 end: end + ", " + currentCity,
                 profile: 'driving'
-            }, function(data) { directionPlugin = data; });
+            }, function (data) { directionPlugin = data; });
         }
 
-        // 5. FILTERING
+        // 4. FILTERING & SORTING
         function filterAndSortItems() {
             let container = document.getElementById("itemGrid");
             let cards = Array.from(container.getElementsByClassName("item-card"));
@@ -225,8 +226,12 @@
                 cards.sort((a, b) => {
                     let priceA = parseInt(a.getAttribute("data-price"));
                     let priceB = parseInt(b.getAttribute("data-price"));
-                    return sortVal === "lowToHigh" ? priceA - priceB : 0; // Simple Low to High
+                    return sortVal === "lowToHigh" ? priceA - priceB : 0;
                 });
                 cards.forEach(card => container.appendChild(card));
             }
         }
+    </script>
+</body>
+
+</html>
