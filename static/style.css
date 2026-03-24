@@ -110,6 +110,10 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
     .hero-title { font-size: 2.2rem !important; line-height: 1.2 !important; }
     .section-heading, #accommodations .section-heading, #places .section-heading { font-size: 1.4rem !important; margin-bottom: 15px !important; border-bottom-width: 2px !important; white-space: normal !important; }
 
+    /* Home Page Hero Search Fix */
+    .hero-search-form { flex-direction: column !important; width: 90% !important; gap: 10px !important;}
+    .search-input-group, .search-btn { width: 100% !important; max-width: none !important; }
+
     /* The "Hotels & Dining" Single-Line Fix */
     .section-header-flex { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; flex-wrap: nowrap !important; gap: 10px !important; padding-bottom: 0 !important; border: none !important; }
     .section-header-flex .section-heading { font-size: 1.1rem !important; margin: 0 !important; border: none !important; white-space: nowrap !important; }
