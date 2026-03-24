@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ city.name }} - TerraVista</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=28.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=29.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
@@ -14,7 +14,8 @@
 
     <nav class="navbar">
         <a href="/" class="logo">
-            <i class="fas fa-globe-americas" style="color: #3b82f6;"></i> TerraVista
+            <i class="fas fa-globe-americas" style="color: #3b82f6;"></i>
+            <span>Terra<span style="color: #3b82f6;">Vista</span></span>
         </a>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
@@ -28,6 +29,9 @@
     <div class="city-title-container">
         <h1 class="city-title">{{ city.name }}</h1>
         <div class="city-tags">
+            <span id="weatherBadge" class="tag" style="background: #e0e7ff; color: #3730a3;">
+                <i class="fas fa-sync-alt fa-spin"></i> Loading...
+            </span>
             <span class="tag tag-blue"><i class="fas fa-landmark"></i> {{ city.tag1 | default('Historical Sites') }}</span>
             <span class="tag tag-orange"><i class="fas fa-utensils"></i> {{ city.tag2 | default('Local Cuisine') }}</span>
             <span class="tag tag-purple"><i class="fas fa-palette"></i> {{ city.tag3 | default('Arts & Culture') }}</span>
@@ -42,7 +46,7 @@
         <div class="grid-container-3">
             {% for place in places %}
             <div class="ui-card">
-                <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}" class="card-img">
+                <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}" class="card-img" onerror="this.src='https://via.placeholder.com/400x300?text=Place+Image'">
                 <div class="card-content">
                     <span class="category-text">{{ place.category | default('Heritage Site') }}</span>
                     <h3 class="card-title">{{ place.name }}</h3>
@@ -73,7 +77,7 @@
         <div class="grid-container-3" id="itemGrid">
             {% for item in items %}
             <div class="ui-card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}" data-type="{{ item.type }}">
-                <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}" class="card-img">
+                <img src="{{ url_for('static', filename='images/' + item.image_file) }}" alt="{{ item.name }}" class="card-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">
                 <div class="card-content">
                     <div class="title-rating-row">
                         <h3 class="card-title">{{ item.name }}</h3>
@@ -103,15 +107,12 @@
             </div>
             
             <div class="map-wrapper">
-                <div class="map-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                    <div style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
-                        <input type="text" id="start-location" placeholder="Start (e.g., Station)..." style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
-                        <input type="text" id="end-location" placeholder="End (e.g., Hotel)..." style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none;">
-                        <button onclick="calculateMapplsRoute()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer;">Go</button>
+                <div class="map-header">
+                    <div class="map-input-group">
+                        <input type="text" id="start-location" class="map-input" placeholder="Start (e.g., Station)...">
+                        <input type="text" id="end-location" class="map-input" placeholder="End (e.g., Hotel)...">
+                        <button onclick="calculateMapplsRoute()" class="map-go-btn">Go</button>
                     </div>
-                    <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem;">
-                        <i class="fas fa-sync-alt fa-spin"></i> Loading Weather...
-                    </span>
                 </div>
                 <div id="liveMap" style="height: 500px; width: 100%;"></div>
             </div>
