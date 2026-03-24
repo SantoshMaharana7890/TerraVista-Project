@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
-    <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
+    <script id="mappls-direction-plugin" src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk_plugins?v=3.0&libraries=direction"></script>
 </head>
 <body class="city-page-bg">
 
@@ -29,11 +29,11 @@
         <h1 class="city-title">{{ city.name }}</h1>
         <div class="city-tags">
             <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 8px 18px; border-radius: 30px; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
-                <i class="fas fa-sync-alt fa-spin"></i> Loading...
+                <i class="fas fa-sync-alt fa-spin"></i> Weather
             </span>
-            <span class="tag tag-blue"><i class="fas fa-landmark"></i> {{ city.tag1 | default('Heritage') }}</span>
-            <span class="tag tag-orange"><i class="fas fa-utensils"></i> {{ city.tag2 | default('Cuisine') }}</span>
-            <span class="tag tag-purple"><i class="fas fa-palette"></i> {{ city.tag3 | default('Arts') }}</span>
+            <span class="tag tag-blue"><i class="fas fa-landmark"></i> Heritage</span>
+            <span class="tag tag-orange"><i class="fas fa-utensils"></i> Cuisine</span>
+            <span class="tag tag-purple"><i class="fas fa-palette"></i> Arts</span>
         </div>
         <p class="city-description">{{ city.description }}</p>
     </div>
@@ -70,7 +70,6 @@
                 </select>
             </div>
         </div>
-        
         <div class="grid-container-3" id="itemGrid">
             {% for item in items %}
             <div class="ui-card item-card" data-price="{{ item.price }}" data-rating="{{ item.rating }}" data-type="{{ item.type }}">
@@ -96,11 +95,10 @@
                 <h3><i class="fas fa-bus"></i> Local Transit</h3>
                 <ul class="transport-list">
                     <li><i class="fas fa-check-circle"></i> Bus & Metro coverage.</li>
-                    <li><i class="fas fa-check-circle"></i> Verified taxi & auto.</li>
+                    <li><i class="fas fa-check-circle"></i> Verified local taxi & auto.</li>
                 </ul>
                 <button class="btn-green">View Fare Estimates</button>
             </div>
-            
             <div class="map-wrapper">
                 <div class="map-header map-input-group">
                     <input type="text" id="start-location" class="map-input" placeholder="Start Location...">
@@ -135,34 +133,43 @@
         else if (currentCity === "Punjab") { cityLat = 31.6340; cityLng = 74.8723; }
         else if (currentCity === "Kolkata") { cityLat = 22.5726; cityLng = 88.3639; }
 
-        // 1. WEATHER (Runs once)
+        // 1. WEATHER LOGIC
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${cityLat}&longitude=${cityLng}&current_weather=true`)
             .then(res => res.json()).then(data => {
                 const temp = data.current_weather.temperature;
                 document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-thermometer-half"></i> ${temp}°C | Live`;
-            }).catch(() => { document.getElementById('weatherBadge').innerHTML = "Weather N/A"; });
+            }).catch(() => { document.getElementById('weatherBadge').innerHTML = "N/A"; });
 
         // 2. MAP INITIALIZATION
         let map, directionPlugin;
+        let pluginReady = false;
+
+        // Listen for the plugin to actually finish loading
+        document.getElementById('mappls-direction-plugin').addEventListener('load', function() {
+            pluginReady = true;
+            console.log("Mappls Direction Plugin Ready.");
+        });
+
         function initMap1() {
             map = new mappls.Map('liveMap', { center: [cityLat, cityLng], zoom: 12 });
         }
 
-        // 3. ROUTE LOGIC (Fixes the "Finalizing" error)
+        // 3. ROUTE LOGIC: Professional Fix for the "Finalizing" problem
         function calculateMapplsRoute() {
-            // Check if Mappls direction library is actually loaded
-            if (typeof mappls.direction === 'undefined') {
-                const btn = document.getElementById('go-btn');
+            const btn = document.getElementById('go-btn');
+            
+            // If the plugin isn't ready yet, show a loader on the button instead of a popup
+            if (!pluginReady || typeof mappls.direction === 'undefined') {
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wait...';
-                setTimeout(calculateMapplsRoute, 1000); // Silent retry
+                setTimeout(calculateMapplsRoute, 1000); // Check again in 1 second
                 return;
             }
-            
-            document.getElementById('go-btn').innerHTML = 'Go';
+
+            btn.innerHTML = 'Go';
             const start = document.getElementById("start-location").value;
             const end = document.getElementById("end-location").value;
 
-            if (!start || !end) return alert("Enter both locations.");
+            if (!start || !end) return alert("Please fill both locations.");
 
             if (directionPlugin) mappls.remove({map: map, layer: directionPlugin});
 
@@ -174,7 +181,7 @@
             }, function(data) { directionPlugin = data; });
         }
 
-        // 4. FILTERING
+        // 4. FILTERING & SORTING
         function filterAndSortItems() {
             let container = document.getElementById("itemGrid");
             let cards = Array.from(container.getElementsByClassName("item-card"));
@@ -201,4 +208,4 @@
         }
     </script>
 </body>
-</html>
+</html> 
