@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ city.name }} - TerraVista</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=29.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=30.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://apis.mappls.com/advancedmaps/api/61322530fe31f5cca1160ea7c85ec03b/map_sdk?layer=vector&v=3.0&callback=initMap1"></script>
@@ -14,8 +14,7 @@
 
     <nav class="navbar">
         <a href="/" class="logo">
-            <i class="fas fa-globe-americas" style="color: #3b82f6;"></i>
-            <span>Terra<span style="color: #3b82f6;">Vista</span></span>
+            <i class="fas fa-globe-americas" style="color: #3b82f6;"></i> TerraVista
         </a>
         <ul class="nav-links">
             <li><a href="/">Home</a></li>
@@ -29,8 +28,8 @@
     <div class="city-title-container">
         <h1 class="city-title">{{ city.name }}</h1>
         <div class="city-tags">
-            <span id="weatherBadge" class="tag" style="background: #e0e7ff; color: #3730a3;">
-                <i class="fas fa-sync-alt fa-spin"></i> Loading...
+            <span id="weatherBadge" style="background: #e0e7ff; color: #3730a3; padding: 8px 18px; border-radius: 30px; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-sync-alt fa-spin"></i> Weather
             </span>
             <span class="tag tag-blue"><i class="fas fa-landmark"></i> {{ city.tag1 | default('Historical Sites') }}</span>
             <span class="tag tag-orange"><i class="fas fa-utensils"></i> {{ city.tag2 | default('Local Cuisine') }}</span>
@@ -46,7 +45,7 @@
         <div class="grid-container-3">
             {% for place in places %}
             <div class="ui-card">
-                <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}" class="card-img" onerror="this.src='https://via.placeholder.com/400x300?text=Place+Image'">
+                <img src="{{ url_for('static', filename='images/' + place.image_file) }}" alt="{{ place.name }}" class="card-img" onerror="this.src='https://via.placeholder.com/400x300?text=Image+Not+Found'">
                 <div class="card-content">
                     <span class="category-text">{{ place.category | default('Heritage Site') }}</span>
                     <h3 class="card-title">{{ place.name }}</h3>
@@ -107,12 +106,10 @@
             </div>
             
             <div class="map-wrapper">
-                <div class="map-header">
-                    <div class="map-input-group">
-                        <input type="text" id="start-location" class="map-input" placeholder="Start (e.g., Station)...">
-                        <input type="text" id="end-location" class="map-input" placeholder="End (e.g., Hotel)...">
-                        <button onclick="calculateMapplsRoute()" class="map-go-btn">Go</button>
-                    </div>
+                <div class="map-header map-input-group">
+                    <input type="text" id="start-location" class="map-input" placeholder="Start (e.g., Station)...">
+                    <input type="text" id="end-location" class="map-input" placeholder="End (e.g., Hotel)...">
+                    <button onclick="calculateMapplsRoute()" class="map-go-btn">Go</button>
                 </div>
                 <div id="liveMap" style="height: 500px; width: 100%;"></div>
             </div>
@@ -134,7 +131,7 @@
     </footer>
 
     <script>
-        // 1. DYNAMIC COORDINATES & WEATHER
+        // --- DYNAMIC COORDINATES & WEATHER ---
         const currentCity = "{{ city.name }}";
         let cityLat = 18.9220; let cityLng = 72.8347; // Default Mumbai
 
@@ -149,18 +146,31 @@
                 document.getElementById('weatherBadge').innerHTML = `<i class="fas fa-thermometer-half"></i> ${temp}°C | Live`;
             }).catch(() => { document.getElementById('weatherBadge').innerHTML = "Weather N/A"; });
 
-        // 2. MAPPLS INITIALIZATION
+        // --- MAPPLS INITIALIZATION (Root fix for laptop crashing) ---
         let map, directionPlugin;
+        let isMapReady = false;
+
         function initMap1() {
+            // Safety check: wait for library to load so it doesn't crash the browser
+            if (typeof mappls === 'undefined') {
+                setTimeout(initMap1, 500);
+                return;
+            }
             map = new mappls.Map('liveMap', {
                 center: [cityLat, cityLng],
                 zoom: 12,
                 zoomControl: true,
                 location: true
             });
+            isMapReady = true;
         }
 
         function calculateMapplsRoute() {
+            if (!isMapReady || typeof mappls.direction === 'undefined') {
+                alert("Map plugin is finalizing. Please try again in 1 second.");
+                return;
+            }
+
             const start = document.getElementById("start-location").value;
             const end = document.getElementById("end-location").value;
             if (!start || !end) return alert("Please enter both locations.");
@@ -176,7 +186,7 @@
             }, function(data) { directionPlugin = data; });
         }
 
-        // 3. FILTER & SORT LOGIC
+        // --- FILTER & SORT LOGIC ---
         function filterAndSortItems() {
             let container = document.getElementById("itemGrid");
             let cards = Array.from(container.getElementsByClassName("item-card"));
