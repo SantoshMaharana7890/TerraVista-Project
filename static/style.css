@@ -32,8 +32,9 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 /* --- CITY PAGE & UI CARDS --- */
 .city-title-container { padding: 120px 20px 20px 20px; text-align: center; }
 .city-title { font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; color: #0f172a; }
-.city-tags { display: flex; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
-.tag { padding: 8px 18px; border-radius: 30px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+.city-tags { display: flex; justify-content: center; gap: 12px; margin: 25px 0; flex-wrap: wrap; }
+.tag { padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.2s ease; }
+.tag:hover { transform: translateY(-3px); }
 .tag-blue { background: #e0e7ff; color: #3730a3; }
 .tag-orange { background: #ffedd5; color: #9a3412; }
 .tag-purple { background: #f3e8ff; color: #6b21a8; }
@@ -76,7 +77,8 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 .map-input { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 1rem; }
 .map-go-btn { background: #3b82f6; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;}
 .map-go-btn:hover { background: #2563eb; }
-#liveMap, .mappls-map-container { height: 450px !important; width: 100% !important; min-height: 400px; background: #e5e7eb; }
+.mappls-map-container { height: 450px !important; width: 100% !important; min-height: 400px; background: #e5e7eb; }
+#liveMap { height: 500px !important; width: 100% !important; min-height: 450px !important; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);}
 
 /* --- ABOUT & FOOTER --- */
 .footer { padding: 25px 20px; text-align: center; background-color: #0f172a; color: #94a3b8; margin-top: auto; display: flex; flex-direction: column; align-items: center; width: 100%; }
