@@ -92,24 +92,44 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 .feature-card:hover { transform: translateY(-10px); }
 
 /* --- ABOUT PAGE HIGHLIGHT BOXES --- */
-.blue-highlight-box {
-    background-color: #eff6ff; /* Soft TerraVista blue */
-    border: 1px solid #bfdbfe;
-    border-top: 5px solid #3b82f6; /* Bold top accent */
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 850px;
-    margin: 0 auto;
+.navy-info-box {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    padding: 50px 40px;
+    border-radius: 16px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.08);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    margin: 0 auto 50px auto;
+    max-width: 1000px;
+    border-top: 4px solid #3b82f6; /* Adds a sharp blue accent line at the top */
 }
 
-.blue-highlight-box p {
-    color: #1e3a8a; /* Deep, readable blue text */
-    font-size: 1.1rem;
+.navy-info-box h1, .navy-info-box h2 {
+    color: #ffffff !important;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.navy-info-box p {
+    font-size: 1.15rem;
+    color: #cbd5e1;
+    max-width: 850px;
+    margin: 0 auto;
     line-height: 1.8;
-    margin: 0;
-    font-weight: 500;
+}
+
+/* Ensure the icons match your Image 2 mockup perfectly */
+.feature-icon {
+    font-size: 3.5rem;
+    color: #3b82f6;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    color: #0f172a;
+    margin-bottom: 15px;
+    font-weight: 800;
 }
 
 /* ==========================================================================
