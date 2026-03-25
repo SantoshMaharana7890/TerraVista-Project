@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TerraVista - Explore.Experience.Enjoy</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=32.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=36.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="home-bg">
@@ -63,6 +63,16 @@
             <p>&copy; 2026 TerraVista. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Listen for the Enter key on the dropdown
+        document.querySelector('.city-dropdown').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Stop default browser behavior
+                document.querySelector('.hero-search-form').submit(); // Trigger the search
+            }
+        });
+    </script>
 
 </body>
 </html>
