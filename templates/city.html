@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ city.name }} - TerraVista</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=31.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=36.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script
@@ -271,7 +271,13 @@
                 cards.sort((a, b) => {
                     let priceA = parseInt(a.getAttribute("data-price"));
                     let priceB = parseInt(b.getAttribute("data-price"));
-                    return sortVal === "lowToHigh" ? priceA - priceB : 0;
+                    let ratingA = parseFloat(a.getAttribute("data-rating"));
+                    let ratingB = parseFloat(b.getAttribute("data-rating"));
+
+                    if (sortVal === "priceLowHigh") return priceA - priceB;
+                    if (sortVal === "priceHighLow") return priceB - priceA;
+                    if (sortVal === "ratingHighLow") return ratingB - ratingA;
+                    return 0;
                 });
                 cards.forEach(card => container.appendChild(card));
             }
