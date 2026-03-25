@@ -201,6 +201,20 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
     .modal-box { padding: 30px 20px; }
 }
 
+/* --- CLICKABLE TRANSIT OPTIONS --- */
+.transit-option {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent !important;
+}
+
+.transit-option:hover {
+    border-color: #3b82f6 !important;
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.15);
+    background: #ffffff !important;
+}
+
 /* ==========================================================================
    THE ULTIMATE MOBILE FIX (Bulletproof Responsive Design)
    ========================================================================== */
