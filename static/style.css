@@ -29,17 +29,43 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 /* --- SYNCHRONIZED HEADINGS --- */
 .section-heading, #accommodations .section-heading, #places .section-heading { font-size: 2rem !important; color: #0f172a !important; font-weight: 700 !important; border-bottom: 3px solid #1e3a8a !important; display: inline-block !important; padding-bottom: 8px !important; margin-bottom: 30px !important; text-transform: none; }
 
+/* --- DROPDOWN FIX --- */
+.custom-select {
+    padding: 10px 15px !important;
+    border-radius: 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    background-color: white !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    cursor: pointer !important;
+    outline: none !important;
+    min-width: 130px; /* Prevents it from squishing */
+    -webkit-appearance: auto; /* Forces the browser dropdown arrow */
+}
+
 /* --- CITY PAGE & UI CARDS --- */
 .city-title-container { padding: 120px 20px 20px 20px; text-align: center; }
 .city-title { font-size: 3rem; text-transform: uppercase; letter-spacing: 2px; color: #0f172a; }
 .city-tags { display: flex; justify-content: center; gap: 12px; margin: 25px 0; flex-wrap: wrap; }
-.tag { padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.2s ease; }
-.tag:hover { transform: translateY(-3px); }
-.tag-blue { background: #e0e7ff; color: #3730a3; }
-.tag-orange { background: #ffedd5; color: #9a3412; }
-.tag-purple { background: #f3e8ff; color: #6b21a8; }
+.tag { padding: 10px 22px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.3s ease; cursor: default; }
+/* 1. Teal (Weather) */
+.tag-teal { background: #ccfbf1; color: #0f766e; }
+.tag-teal:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(15, 118, 110, 0.25); }
+
+/* 2. Blue (Sports) */
+.tag-blue { background: #d6e0fe; color: #3730a3; }
+.tag-blue:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(55, 48, 163, 0.25); }
+
+/* 3. Orange (Cuisine) */
+.tag-orange { background: oklab(90.923% 0.01898 0.06577); color: #9a3412; }
+.tag-orange:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(154, 52, 18, 0.25); }
+
+/* 4. Purple (Arts) */
+.tag-purple { background: #e1caf9; color: #6b21a8; }
+.tag-purple:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(107, 33, 168, 0.25); }
+
 .city-description { max-width: 900px; margin: 20px auto; color: #475569; font-size: 1.1rem; line-height: 1.8; }
-.section-wrapper { max-width: 1300px; margin: 60px auto; padding: 0 40px; }
+.section-wrapper { max-width: 1300px; margin: 60px auto; padding: 0 40px; scroll-margin-top: 100px;}
 .section-header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
 .filter-sort-group { display: flex; gap: 15px; }
 .filter-sort-group select { padding: 10px 15px; border-radius: 8px; border: 1px solid #cbd5e1; background-color: white; font-weight: 600; cursor: pointer; outline: none; }
