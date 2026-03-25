@@ -237,12 +237,22 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 }
 
 @media (max-width: 768px) {
-    /* Navbar Mobile Fix - Keeps them side-by-side instead of stacked/centered */
+    /* 1. NAVBAR MOBILE FIX: Stack logo and wrap links so nothing is ever hidden */
     .navbar { 
         padding: 15px 20px !important; 
-        flex-direction: row !important; /* Prevents them from centering on top of each other */
+        flex-direction: column !important; /* Stacks logo on top, links below */
+        align-items: flex-start !important; /* Aligns everything neatly to the left */
+        gap: 12px !important;
     }
-    .nav-links { gap: 15px; }
+    .nav-links { 
+        width: 100%;
+        flex-wrap: wrap !important; /* Allows links to flow to a second line instead of pushing off-screen */
+        justify-content: flex-start !important;
+        gap: 10px 15px !important;
+    }
+    .nav-links a { 
+        font-size: 0.9rem !important; /* Slightly smaller font to fit nicely on phones */
+    }
 
     /* Typography Fixes */
     .hero-section, .city-title-container, .about-main { padding-top: 40px !important; height: auto !important; }
@@ -250,33 +260,38 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
     .section-heading, #accommodations .section-heading, #places .section-heading { font-size: 1.4rem !important; margin-bottom: 15px !important; border-bottom-width: 2px !important; white-space: normal !important; }
 
     /* Home Page Search Bar Fix */
-    .search-bar-container, .hero-search-form, .hero-section form { 
+    .search-bar-container, .hero-section form { 
         flex-direction: column !important; 
         width: 100% !important; 
         padding: 0 15px !important;
         box-sizing: border-box;
         gap: 15px !important;
+        overflow: hidden !important; /* Prevents the whole screen from stretching horizontally */
     }
-    /* ROOT FIX for Mobile Search Bar Squeeze */
+    
+    /* 2. ROOT FIX for Mobile Search Bar Text Overflow */
     .hero-search-form { 
-        flex-direction: column !important; /* Stacks the dropdown AND the button */
+        flex-direction: column !important; 
         width: 100% !important; 
         padding: 0 15px !important; 
         box-sizing: border-box !important; 
+        overflow: hidden !important;
     }
-    
     .search-input-group {
         width: 100% !important; 
-        margin-bottom: 12px; /* Adds breathing room below the input */
-        border-radius: 12px !important; /* Looks cleaner on mobile */
+        margin-bottom: 12px; 
+        border-radius: 12px !important; 
+        overflow: hidden !important; /* CRITICAL: Forces the long dropdown text to stay inside the white box */
     }
-
     .city-dropdown {
-        font-size: 0.95rem !important; /* Scales text down slightly to fit better */
+        width: 100% !important;
+        font-size: 0.95rem !important; 
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
     }
-
     .search-btn { 
-        width: 100% !important; /* Makes button full width on mobile */
+        width: 100% !important; 
         border-radius: 12px !important;
         height: 55px;
     }
@@ -288,8 +303,8 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
     .filter-sort-group select { padding: 5px 8px !important; font-size: 12px !important; height: 35px !important; }
 
     /* Search & Map Input Fixes */
-    .hero-search-form, .map-input-group { flex-direction: column !important; width: 100% !important; padding: 0 !important; box-sizing: border-box !important; }
-    .search-input-group, .search-btn, .map-input, .map-go-btn { width: 100% !important; margin-bottom: 10px; box-sizing: border-box !important; }
+    .map-input-group { flex-direction: column !important; width: 100% !important; padding: 0 !important; box-sizing: border-box !important; }
+    .map-input, .map-go-btn { width: 100% !important; margin-bottom: 10px; box-sizing: border-box !important; }
     
     /* Aggressive Stack for Cards & About Pages */
     .grid-container-3, .about-features { display: flex !important; flex-direction: column !important; width: 100% !important; padding: 0 !important; box-sizing: border-box !important; gap: 20px !important; }
