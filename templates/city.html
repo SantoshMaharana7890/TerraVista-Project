@@ -109,13 +109,21 @@
         <h2 class="section-heading">Transport & Live Routes</h2>
         <div class="transport-layout">
             <div class="transport-card">
-                <h3><i class="fas fa-bus"></i> Local Transit</h3>
-                <ul class="transport-list">
-                    <li><i class="fas fa-check-circle"></i> Bus & Metro coverage.</li>
-                    <li><i class="fas fa-check-circle"></i> Verified local taxi & auto.</li>
+                <h3 style="color: #0f172a; margin-bottom: 20px; font-size: 1.3rem;">
+                    <i class="fas fa-bus" style="color: #0f172a; margin-right: 8px;"></i> Local Transit
+                </h3>
+                
+                <ul class="transport-list" style="list-style: none; padding: 0; margin-bottom: 30px; color: #475569; font-size: 0.95rem;">
+                    <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <i class="fas fa-check-circle" style="color: #475569; margin-right: 10px;"></i> Bus & Metro coverage.
+                    </li>
+                    <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                        <i class="fas fa-check-circle" style="color: #475569; margin-right: 10px;"></i> Verified local taxi & auto.
+                    </li>
                 </ul>
-                <button class="btn-green" onclick="openTransitModal()">
-                    <i class="fas fa-satellite-dish fa-beat" style="margin-right: 8px;"></i> Live Fare Estimates
+
+                <button class="btn-green" onclick="openTransitModal()" style="margin-top: auto; background-color: #22c55e;">
+                    <i class="fas fa-satellite-dish" style="margin-right: 8px;"></i> Live Fare Estimates
                 </button>
             </div>
             <div class="map-wrapper">
@@ -427,16 +435,14 @@
 
         // 5. LIVE TRANSIT ESTIMATOR & BOOKING LOGIC
 
-        // Advanced String-Hashing Algorithm: Generates a fixed, realistic distance for any two words
         function getConsistentDistance(start, end) {
-            if (!start || !end) return Math.floor(Math.random() * 10) + 5; // Random fallback
+            if (!start || !end) return Math.floor(Math.random() * 10) + 5; 
             let combined = (start.toLowerCase() + end.toLowerCase()).replace(/\s/g, '');
             let hash = 0;
             for (let i = 0; i < combined.length; i++) {
                 hash = ((hash << 5) - hash) + combined.charCodeAt(i);
                 hash |= 0;
             }
-            // Math magic to keep the generated distance between 2.5km and 32.5km
             return (Math.abs(hash) % 300) / 10 + 2.5; 
         }
 
@@ -462,29 +468,24 @@
             document.getElementById('transitLoader').style.display = 'block';
 
             setTimeout(() => {
-                // Generate the mathematically fixed distance
                 let distance = getConsistentDistance(startPoint, endPoint);
-                let distStr = distance.toFixed(1); // Rounds to 1 decimal place (e.g., "5.2")
+                let distStr = distance.toFixed(1); 
 
-                // CAB: Fastest, Most Expensive (22/km, 3 mins/km)
                 document.getElementById('cabDistance').innerText = distStr;
                 document.getElementById('cabDuration').innerText = Math.round(distance * 3); 
                 document.getElementById('cabPrice').innerText = Math.round(distance * 22).toLocaleString('en-IN');
                 document.getElementById('cabEta').innerText = Math.floor(Math.random() * 4) + 2;
 
-                // AUTO: Medium Speed, Medium Price (14/km, 4 mins/km)
                 document.getElementById('autoDistance').innerText = distStr;
                 document.getElementById('autoDuration').innerText = Math.round(distance * 4); 
                 document.getElementById('autoPrice').innerText = Math.round(distance * 14).toLocaleString('en-IN');
                 document.getElementById('autoEta').innerText = Math.floor(Math.random() * 3) + 1;
 
-                // LOCAL BUS: Slowest, Cheapest (Flat base + 2/km, 6 mins/km)
                 document.getElementById('busDistance').innerText = distStr;
                 document.getElementById('busDuration').innerText = Math.round(distance * 6); 
                 document.getElementById('busPrice').innerText = Math.round(distance * 2) + 10;
                 document.getElementById('busEta').innerText = Math.floor(Math.random() * 10) + 5;
 
-                // METRO: Fastest, Traffic-free, Fixed stations (2.5/km, 1.5 mins/km)
                 document.getElementById('metroDistance').innerText = distStr;
                 document.getElementById('metroDuration').innerText = Math.round(distance * 1.5); 
                 document.getElementById('metroPrice').innerText = Math.round(distance * 2.5) + 15;
@@ -494,7 +495,45 @@
                 document.getElementById('transitResults').style.display = 'flex';
             }, 1500);
         }
-    </script>
-</body>
 
+        // ---> THIS IS THE MISSING BOOKING FUNCTION <---
+        function bookRide(vehicleName, priceElementId, etaElementId, iconClass) {
+            document.getElementById('transitResults').style.display = 'none';
+            
+            const loaderText = document.getElementById('transitLoaderText');
+            const loaderIcon = document.getElementById('transitSpinnerIcon');
+            loaderText.innerHTML = `Connecting to your <strong>${vehicleName}</strong>...`;
+            loaderIcon.className = 'fas fa-circle-notch fa-spin';
+            document.getElementById('transitLoader').style.display = 'block';
+
+            const selectedPrice = document.getElementById(priceElementId).innerText;
+            const selectedEta = document.getElementById(etaElementId).innerText;
+
+            setTimeout(() => {
+                document.getElementById('transitLoader').style.display = 'none';
+                
+                document.getElementById('bookedVehicle').innerText = vehicleName;
+                document.getElementById('bookedEtaTime').innerText = selectedEta;
+                document.getElementById('bookedPriceFinal').innerText = selectedPrice;
+                document.getElementById('bookedIcon').className = `fas ${iconClass}`;
+                
+                document.getElementById('rideSuccessScreen').style.display = 'block';
+            }, 1500);
+        }
+
+        // ---> THIS IS THE MISSING CLOSE FUNCTION <---
+        function closeTransitModal() {
+            document.getElementById('transitModal').style.display = 'none';
+        }
+
+        // Ensures clicking the dark background closes both modals
+        window.onclick = function(event) {
+            const bookModal = document.getElementById('bookingModal');
+            const transModal = document.getElementById('transitModal');
+            if (event.target === bookModal) closeBookingModal();
+            if (event.target === transModal) closeTransitModal();
+        }
+    </script>
+
+</body>
 </html>
