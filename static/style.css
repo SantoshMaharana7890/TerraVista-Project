@@ -36,16 +36,16 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 .location-icon { color: #94a3b8; font-size: 1.2rem; margin-right: 15px; }
 
 /* --- UPDATED HERO SUBTITLE --- */
+
 .hero-subtitle { 
-    font-size: 1.35rem; /* Slightly larger so the new font pops */
+    font-size: 1.35rem; 
     color: #ffffff; 
     margin: 0 auto 40px auto; 
     max-width: 680px; 
     text-shadow: 2px 3px 8px rgba(0,0,0,0.9); 
     font-weight: 400; 
-    /* THE NEW FONT: A highly distinct, elegant serif */
     font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif; 
-    font-style: italic; /* Gives it that cinematic travel brochure vibe */
+    font-style: italic; 
     letter-spacing: 1px;
     line-height: 1.6;
 }
@@ -65,10 +65,19 @@ html, body { height: 100%; overflow-x: hidden; background-color: #f8fafc; color:
 }
 
 /* --- ADDED THE GLOW CLASS FOR THE JAVASCRIPT --- */
-.search-btn:hover, .search-btn-glow { 
-    background-color: #2563eb; 
+/* --- RESTORED PREMIUM NEON GLOW --- */
+.search-btn:hover { 
+    background-color: #60a5fa; /* Brighter blue for the glow state */
     transform: translateY(-2px); 
-    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.6); 
+    box-shadow: 0 0 20px rgba(96, 165, 250, 0.9); /* Perfect 360-degree neon halo */
+}
+
+/* --- CLASS TRIGGERED BY THE ENTER KEY (JAVASCRIPT) --- */
+.neon-glow {
+    background-color: #60a5fa !important;
+    box-shadow: 0 0 25px rgba(96, 165, 250, 1) !important; 
+    transform: translateY(1px) !important;
+    transition: all 0.1s ease !important;
 }
 
 .search-btn:active, .search-btn-press {
