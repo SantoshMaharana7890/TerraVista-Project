@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TerraVista - Explore.Experience.Enjoy</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=47.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=49.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="home-bg">
@@ -24,8 +24,8 @@
         <h1 class="hero-title" style="margin-bottom: 20px;">Experience the True Essence of India</h1>
         
         <p class="hero-subtitle">
-            Discover heritage, savor authentic cuisines, and stay in comfort.<br>
-            Curate your perfect journey today.
+            <span style="display: block; margin-bottom: 5px;">Discover heritage, savor authentic cuisines, and stay in comfort.</span>
+            <span style="display: block;">Curate your perfect journey today.</span>
         </p>
 
         <form action="/search" method="get" class="hero-search-form">
@@ -70,21 +70,18 @@
         // Listen for the Enter key on the dropdown
         document.querySelector('.city-dropdown').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
-                e.preventDefault(); // Stop default browser behavior instantly
+                e.preventDefault(); // Stop default browser behavior
                 
                 const searchBtn = document.querySelector('.search-btn');
                 const form = document.querySelector('.hero-search-form');
                 
-                // 1. FORCE inline styles. The browser cannot ignore this.
-                searchBtn.style.transition = "all 0.1s ease";
-                searchBtn.style.backgroundColor = "#2563eb"; // The dark blue hover color
-                searchBtn.style.boxShadow = "0 8px 20px rgba(59, 130, 246, 0.6)"; // The blue glow
-                searchBtn.style.transform = "translateY(1px)"; // The physical "press down"
+                // 1. Add the neon glow class to replicate the hover perfectly
+                searchBtn.classList.add('neon-glow');
                 
-                // 2. Wait exactly 350 milliseconds (long enough for the human eye to see the flash), THEN submit
+                // 2. Wait 300 milliseconds for the flash, then submit
                 setTimeout(() => {
                     form.submit();
-                }, 350);
+                }, 300);
             }
         });
     </script>
