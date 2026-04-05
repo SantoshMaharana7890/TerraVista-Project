@@ -470,11 +470,23 @@
             const endPoint = document.getElementById("end-location").value.trim();
             const routeTextElement = document.getElementById("transitRouteText");
 
-            if (startPoint !== "" && endPoint !== "") {
-                routeTextElement.innerHTML = `Calculating routes from <strong style="color:#0f172a;">${startPoint}</strong> to <strong style="color:#0f172a;">${endPoint}</strong>.`;
-            } else {
-                routeTextElement.innerHTML = `Estimates based on general traffic. <br><span style="color:#ef4444; font-weight:bold; font-size:0.8rem;"><i class="fas fa-exclamation-circle"></i> Tip: Enter Start and Destination on the map!</span>`;
+            // --- THE FIX: Stop execution and alert if fields are empty ---
+            if (startPoint === "" || endPoint === "") {
+                alert("Please enter both a Start Point and Destination to get live fare estimates.");
+                
+                // Highlight the empty fields in red to guide the user
+                document.getElementById("start-location").style.borderColor = startPoint === "" ? "#ef4444" : "#cbd5e1";
+                document.getElementById("end-location").style.borderColor = endPoint === "" ? "#ef4444" : "#cbd5e1";
+                
+                return; // CRITICAL: This completely stops the modal from opening!
             }
+
+            // Reset borders back to normal if they were previously red
+            document.getElementById("start-location").style.borderColor = "#cbd5e1";
+            document.getElementById("end-location").style.borderColor = "#cbd5e1";
+
+            // If we get here, both fields have text. Proceed normally.
+            routeTextElement.innerHTML = `Calculating routes from <strong style="color:#0f172a;">${startPoint}</strong> to <strong style="color:#0f172a;">${endPoint}</strong>.`;
 
             document.getElementById('transitModal').style.display = 'flex';
             document.getElementById('rideSuccessScreen').style.display = 'none';
@@ -503,7 +515,7 @@
                 document.getElementById('busDistance').innerText = distStr;
                 document.getElementById('busDuration').innerText = Math.round(distance * 6); 
                 document.getElementById('busPrice').innerText = Math.round(distance * 2) + 10;
-                document.getElementById('busEta').innerText = Math.floor(Math.random() * 10) + 5;
+                document.getElementById('busEta').innerText = Math.floor(Math.random() * 5) + 5;
 
                 document.getElementById('metroDistance').innerText = distStr;
                 document.getElementById('metroDuration').innerText = Math.round(distance * 1.5); 
